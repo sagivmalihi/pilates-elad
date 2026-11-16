@@ -18,14 +18,15 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23f7ece6'/%3E%3Cg transform='translate(32 32)' fill='%23d79a9c'%3E%3Cellipse rx='8' ry='13' cy='-12'/%3E%3Cellipse rx='8' ry='13' cy='-12' transform='rotate(72)'/%3E%3Cellipse rx='8' ry='13' cy='-12' transform='rotate(144)'/%3E%3Cellipse rx='8' ry='13' cy='-12' transform='rotate(216)'/%3E%3Cellipse rx='8' ry='13' cy='-12' transform='rotate(288)'/%3E%3C/g%3E%3Ccircle cx='32' cy='32' r='6' fill='%237b3f55'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700&family=Playfair+Display:wght@500;700;900&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+<script>try{if(!sessionStorage.getItem('im_intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.className+=' intro-on'}catch(e){}</script>
 <style>
 :root{
   --spots:4; /* mirrors MAX_SPOTS in the script; the script overwrites this */
   --cream:#fbf4ef; --cream2:#f6e8e1; --blush:#f1d8d3; --rose:#d9a3a2; --rose-deep:#c4807f;
   --mauve:#7b3f55; --plum:#5a2940; --ink:#47242f; --muted:#8c6873; --line:rgba(123,63,85,.16);
   --white:#fffaf7;
-  --display:"Frank Ruhl Libre","Heebo",serif; --body:"Heebo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --display:"Frank Ruhl Libre","Playfair Display","Heebo",serif; --body:"Heebo","Rubik",system-ui,-apple-system,"Segoe UI",sans-serif;
   --r:26px; --shadow:0 24px 60px -28px rgba(90,41,64,.38); --shadow-s:0 10px 30px -16px rgba(90,41,64,.35);
   --ease:cubic-bezier(.22,.8,.24,1);
 }
@@ -305,6 +306,221 @@ footer .brand svg{width:60px;height:60px}
   .marq-track{animation:none}
   .a-rip{opacity:.5}
 }
+
+/* ===================== v4: the overkill layer ===================== */
+body{background:linear-gradient(180deg,#fbf4ef,#f3ddd6 55%,#fbf4ef) fixed,var(--cream)}
+#stage{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block;opacity:0;transition:opacity .8s}
+.stage-on #stage{opacity:1}
+main,footer,.marq{position:relative;z-index:1}
+.stage-on .hero{background:none}
+.stage-on .count,.stage-on .game,.stage-on .book{background:linear-gradient(180deg,rgba(251,244,239,.3),rgba(241,216,211,.42))}
+.stage-on .breath{background:rgba(251,244,239,.25)}
+.stage-on .mats{background:rgba(90,41,64,.9)}
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:95;pointer-events:none}
+[dir=ltr] #progress,[dir=ltr] .steps i::after{transform-origin:0 50%}
+[dir=ltr] .fab{left:auto;right:16px}
+[dir=ltr] .marq span{direction:ltr}
+[dir=ltr] .bubble{border-radius:4px 18px 18px 18px}
+html:not([lang=he]):not([lang=yi]) .hero h1{font-size:clamp(50px,15.5vw,150px);line-height:1}
+html[lang=yi] .hero h1{font-size:clamp(58px,17.5vw,160px);line-height:1.02}
+html[lang=ru] .hero h1{font-size:clamp(46px,14.5vw,140px)}
+html:not([lang=he]) .day b{font-size:20px}
+
+/* intro */
+#intro{position:fixed;inset:0;z-index:200;background:radial-gradient(80% 60% at 50% 40%,#6d3149,#3a1626 78%);display:none;place-items:center;color:#fbe9e5;text-align:center;overflow:hidden}
+.intro-on #intro{display:grid;animation:introSafe .6s 6.5s forwards}
+.intro-on #stage{z-index:201}
+.intro-lock body{overflow:hidden}
+#intro.out{opacity:0;transition:opacity .9s ease;pointer-events:none}
+@keyframes introSafe{to{opacity:0;visibility:hidden}}
+.intro-t b{display:block;font-family:var(--display);font-size:clamp(30px,8.4vw,66px);font-weight:700;opacity:0;animation:introIn 1s .15s forwards,introOut .45s 1.7s forwards}
+.intro-t span{display:block;margin-top:12px;font-size:15px;letter-spacing:.6em;opacity:0;animation:introIn 1s .55s forwards,introOut .45s 1.7s forwards}
+@keyframes introIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes introOut{to{opacity:0;transform:scale(1.08)}}
+.intro-sweep{position:absolute;top:-20%;bottom:-20%;left:-45%;width:38%;background:linear-gradient(100deg,transparent,rgba(255,232,226,.34),transparent);transform:skewX(-18deg);animation:sweep 1.5s .6s ease-in-out forwards}
+@keyframes sweep{to{left:125%}}
+#skip{position:absolute;top:calc(14px + env(safe-area-inset-top));inset-inline-end:14px;min-height:44px;padding:0 20px;border-radius:999px;border:1.5px solid rgba(255,255,255,.45);background:rgba(255,255,255,.08);color:#fff;font-size:15px;z-index:2}
+
+/* header tools */
+.tools{display:flex;align-items:center;gap:6px}
+.ib{min-width:44px;height:44px;border-radius:999px;border:0;background:rgba(255,250,247,.72);box-shadow:inset 0 0 0 1.5px var(--line);display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:0 10px;font-size:15px;color:var(--plum);white-space:nowrap}
+.ib[aria-pressed=true]{background:var(--mauve);color:#fff}
+select.ib{-webkit-appearance:none;appearance:none;font:inherit;font-size:14px;padding:0 12px;text-align:center;text-align-last:center;max-width:92px;cursor:pointer}
+#achN{font-size:13px;font-variant-numeric:tabular-nums}
+.ach{position:fixed;z-index:70;top:72px;inset-inline-end:14px;width:min(300px,calc(100vw - 28px));background:var(--white);border-radius:20px;box-shadow:var(--shadow),inset 0 0 0 1px var(--line);padding:16px 18px;font-size:15px}
+.ach[hidden]{display:none}
+.ach h4{margin:0 0 8px;font-family:var(--display);font-size:20px;color:var(--plum)}
+.ach ul{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.ach li{opacity:.4}.ach li.got{opacity:1}
+@media (max-width:560px){.top .brand b{display:none}.top .wrap{width:calc(100% - 24px)}.top .btn.sm{padding:0 14px;font-size:15px}html:not([lang=he]) .top .btn.sm{display:none}}
+.top .brand{flex:none}
+.alt a,.f-contact a{gap:.35em}
+#toasts{position:fixed;z-index:120;left:0;right:0;bottom:calc(86px + env(safe-area-inset-bottom));display:grid;justify-items:center;gap:8px;pointer-events:none;padding:0 16px}
+.toast{background:var(--plum);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:999px;padding:11px 20px;font-size:15px;line-height:1.35;box-shadow:var(--shadow);max-width:100%;text-align:center;animation:toastIn .5s var(--ease),toastOut .5s 3.7s forwards}
+@keyframes toastIn{from{opacity:0;transform:translateY(16px) scale(.94)}}
+@keyframes toastOut{to{opacity:0;transform:translateY(-8px)}}
+
+/* Sagiv switch */
+.sw{display:inline-flex;align-items:center;gap:9px;min-height:44px;margin-top:12px;padding:0 14px;background:rgba(255,250,247,.82);box-shadow:inset 0 0 0 1.5px var(--line);border-radius:999px;border:0;font-size:14.5px;color:var(--mauve);pointer-events:auto}
+.sw i{width:42px;height:24px;border-radius:99px;background:rgba(123,63,85,.24);position:relative;transition:background .3s;flex:none}
+.sw i::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .3s}
+.sw[aria-checked=true] i{background:var(--mauve)}
+.sw[aria-checked=true] i::after{transform:translateX(-18px)}
+[dir=ltr] .sw[aria-checked=true] i::after{transform:translateX(18px)}
+#paintOff{display:none;position:fixed;z-index:80;top:74px;left:50%;transform:translateX(-50%) rotate(-1.5deg)}
+.hero-in{padding-bottom:37vh}
+
+/* weather */
+.wx{margin-top:16px;display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;padding:9px 18px;border-radius:999px;background:rgba(255,250,247,.75);box-shadow:inset 0 0 0 1px var(--line);font-size:16px;color:var(--plum)}
+.wx[hidden]{display:none}.wx small{font-size:11px;color:var(--muted);letter-spacing:.04em}
+
+/* stats */
+.stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 10px;margin-top:44px}
+.stat b{display:block;font-family:var(--display);font-weight:900;font-size:clamp(66px,20vw,132px);line-height:.9;color:var(--plum);font-variant-numeric:tabular-nums;direction:ltr}
+.stat:nth-child(even) b{color:var(--rose-deep)}
+.stat span{display:block;margin-top:10px;color:var(--muted);font-size:16px;letter-spacing:.05em}
+.stat.wide{grid-column:1/-1}
+@media (min-width:760px){.stats-grid{grid-template-columns:repeat(4,1fr);gap:54px 20px}.stat.wide{grid-column:span 2}.stat b{font-size:clamp(80px,9vw,132px)}}
+
+/* timeline */
+.tl{position:relative;max-width:720px;margin:54px auto 0;padding-inline-start:36px}
+.tl::before{content:"";position:absolute;top:0;bottom:0;inset-inline-start:8px;width:2px;background:var(--line)}
+.tl-prog{position:absolute;top:0;bottom:0;inset-inline-start:8px;width:2px;background:linear-gradient(var(--rose),var(--mauve));transform-origin:50% 0}
+.tl-i{position:relative;padding-bottom:56px}
+.tl-i:last-child{padding-bottom:0}
+.tl-i::before{content:"";position:absolute;inset-inline-start:-35px;top:.55em;width:16px;height:16px;border-radius:50%;background:var(--cream);border:3px solid var(--mauve);box-sizing:border-box}
+.tl-y{display:block;font-family:var(--display);font-weight:900;font-size:clamp(46px,13vw,88px);line-height:1;color:var(--plum);letter-spacing:-.01em}
+.tl-y.sm{font-size:clamp(34px,9.4vw,64px);font-weight:500;font-style:italic;color:var(--rose-deep)}
+.tl-i p{font-size:19px;color:var(--ink);margin-top:10px;max-width:27em}
+.tl-i.fin .tl-y{color:var(--rose-deep)}
+.tl-i.fin::before{background:var(--mauve)}
+.tl-i.fin p b{font-family:var(--display);font-size:26px;color:var(--plum)}
+.tl-i .btn{margin-top:16px}
+
+/* ticket */
+.tk-block{margin-top:30px;padding-top:26px;border-top:1.5px dashed var(--line)}
+.tk-block[hidden]{display:none}
+.tk-wrap{margin-top:14px;perspective:900px}
+.tk{position:relative;border-radius:22px;overflow:hidden;background:linear-gradient(135deg,#6f344c,#48202f 58%,#7b3f55);color:#fdeeea;padding:20px 18px 16px;box-shadow:0 26px 44px -22px rgba(72,32,47,.8);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .18s linear;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;isolation:isolate}
+.tk::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(115deg,transparent 18%,rgba(255,110,200,.6) 34%,rgba(110,215,255,.6) 44%,rgba(255,240,140,.55) 53%,rgba(150,255,190,.5) 62%,transparent 80%);background-size:280% 280%;background-position:var(--fx,30%) var(--fy,40%);mix-blend-mode:color-dodge;opacity:.5;pointer-events:none;transition:background-position .18s linear}
+.tk::after{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(circle at var(--gx,30%) var(--gy,20%),rgba(255,255,255,.3),transparent 46%);pointer-events:none}
+.tk-main small{letter-spacing:.28em;font-size:11px;opacity:.8}
+.tk-main h4{font-family:var(--display);font-size:clamp(24px,7vw,34px);line-height:1.1;margin:4px 0 12px;color:#fff;word-break:break-word}
+.tk dl{margin:0;font-size:15.5px;line-height:1.35}
+.tk dt{opacity:.65;font-size:12px}.tk dd{margin:0 0 7px;font-weight:500}
+.tk-admit{margin-top:12px;font-size:11px;letter-spacing:.3em;opacity:.7}
+.tk-side{border-inline-start:2px dashed rgba(255,255,255,.35);padding-inline-start:14px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:8px}
+.tk-logo{font-family:"Dancing Script",cursive;font-size:19px;font-weight:700;direction:ltr;white-space:nowrap}
+.tk-bar{display:flex;height:70px;direction:ltr;align-items:stretch}
+.tk-bar i{display:block;background:#fdeeea}
+.tk-no{font-size:10px;letter-spacing:.2em;opacity:.7}
+.tk-note{margin-top:12px;font-size:14px;color:var(--muted)}
+.tk-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.cal-h{margin-top:22px!important;font-size:21px!important}
+.kit{justify-items:center}
+.kit .btn{color:#fff;background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.3);white-space:normal;text-align:center;line-height:1.25;padding:8px 20px}
+.vh .now.old{filter:grayscale(.6);opacity:.7}
+#lbHint{position:absolute;left:0;right:0;bottom:14px;text-align:center;color:#fff;font-size:14px;padding:0 16px}
+#lbHint:empty{display:none}
+
+/* print flyer */
+.flyer{display:none}
+@media print{
+  @page{size:A4;margin:0}
+  html,body{background:#fbf4ef!important;height:auto}
+  body>*:not(.flyer){display:none!important}
+  .flyer{display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;width:210mm;height:296mm;padding:16mm 18mm 14mm;background:linear-gradient(180deg,#fbf4ef,#f1d8d3);-webkit-print-color-adjust:exact;print-color-adjust:exact;color:#47242f;overflow:hidden;page-break-after:avoid}
+  .fl-logo{width:34mm;height:34mm}
+  .flyer h1{font-family:var(--display);font-weight:900;font-size:24mm;line-height:1.05;color:#5a2940;margin:0;white-space:nowrap}
+  .flyer h1 span:last-child{color:#c4807f;font-weight:500}
+  .fl-pill{background:#7b3f55;color:#fff;border-radius:99px;padding:3mm 10mm;font-size:7mm;font-weight:500}
+  .fl-vibe{font-size:6.5mm;color:#7b3f55;letter-spacing:.06em}
+  .fl-ball{width:44mm;height:44mm;border-radius:50%;background:radial-gradient(circle at 34% 28%,#fff3ee 0%,#efc3bf 22%,#d9a3a2 52%,#b77a80 82%,#9a6070 100%)}
+  .flyer ul{list-style:none;margin:0;padding:0;font-family:var(--display);font-weight:700;font-size:8.2mm;line-height:1.45;color:#5a2940}
+  .fl-new{font-size:7mm;line-height:1.5}.fl-new b,.fl-new span{display:block}.fl-new b{color:#7b3f55}
+  .fl-cta{background:#7b3f55;color:#fff;border-radius:8mm;padding:5mm 16mm;font-size:6mm;width:100%}
+  .fl-cta b{display:block;font-size:17mm;line-height:1.1;letter-spacing:.02em}
+}
+
+/* ===================== גרסת שגיב (MS Paint mode) ===================== */
+html.paint body{background:#b3ffff!important;font-family:"Gveret Levin","Comic Sans MS","Comic Neue","Chalkboard SE",cursive;color:#000;-webkit-font-smoothing:none}
+html.paint #stage,html.paint #gl,html.paint #petals{display:none!important}
+html.paint #paintOff{display:inline-flex}
+html.paint .hero,html.paint .sec,html.paint .mats,html.paint footer{background:none!important}
+html.paint .hero::before,html.paint .mats::before{display:none}
+html.paint .cssball{display:block!important;background:#ff22e6!important;border:4px solid #000;box-shadow:none;animation:none;border-radius:47% 53% 50% 50%/52% 48% 53% 47%;filter:url(#jag)}
+html.paint .cssball::after{content:"כדור";position:absolute;bottom:-34px;left:0;right:0;text-align:center;color:#00f;font-size:24px}
+html.paint .hero-in::after{content:"😎";position:absolute;top:72px;left:0;font-size:52px;line-height:1;transform:rotate(-12deg);background:#ff0;border-radius:50%;box-shadow:0 0 0 6px #ff0,0 0 0 9px #c9a600}
+html.paint .h2,html.paint .hero h1,html.paint h3,html.paint .tl-y,html.paint .stat b,html.paint .cd b,html.paint .marq span,html.paint .tk-main h4,html.paint .hud b,html.paint .b-text b,html.paint .day b{font-family:inherit!important;letter-spacing:0}
+html.paint .hero h1{filter:url(#jag)}
+html.paint .hero h1 span:first-child{color:#f00;transform:rotate(-3deg)}
+html.paint .hero h1 span:last-child{color:#0a22ff;transform:rotate(2deg);font-weight:900}
+html.paint .hero h1 span:last-child::after{content:"!!!1";color:#800080;font-size:.5em}
+html.paint .eyebrow{color:#800080}
+html.paint .hero .sub{color:#000080}
+html.paint .h2{transform:rotate(-1.5deg);color:#00b400!important;filter:url(#jag)}
+html.paint #stats .h2,html.paint #breath .h2{color:#800080!important;transform:rotate(1.5deg)}
+html.paint #mats .h2,html.paint #book .h2{color:#f00!important}
+html.paint #benefits .h2,html.paint #location .h2{color:#0a22ff!important;transform:rotate(1deg)}
+html.paint #game .h2,html.paint #history .h2{color:#f0f!important}
+html.paint .mats .h2 em{color:#00b400}
+html.paint .lead,html.paint .kicker,html.paint .mats .lead,html.paint .mats .kicker,html.paint .mats-note,html.paint .mats-note a,html.paint .cd-note,html.paint .cd-when,html.paint .cd-when b,html.paint .stat span,html.paint .game-msg{color:#000080!important}
+html.paint .kicker::before,html.paint .kicker::after{background:#000;height:2px;opacity:1}
+html.paint .btn{background:#ff22e6!important;color:#ff0!important;border:3px solid #000;border-radius:0!important;box-shadow:4px 4px 0 #000!important;transform:rotate(-1.5deg);-webkit-backdrop-filter:none;backdrop-filter:none;font-weight:700}
+html.paint .btn.ghost{background:#0e0!important;color:#000!important;transform:rotate(1.5deg)}
+html.paint .btn.wa{background:#00b400!important;color:#fff!important}
+html.paint .pill{background:#ff0;color:#f00;border:3px dashed #f00;border-radius:0;box-shadow:none;transform:rotate(1.5deg)}
+html.paint .pill i{background:#f00;animation:none}
+html.paint .cd div,html.paint .face.front,html.paint .loc-card,html.paint .book-card,html.paint .hud div,html.paint .ib,html.paint .day span,html.paint .inp,html.paint .map,html.paint .ach,html.paint .wx,html.paint .vh{background:#fff!important;border:3px solid #000!important;border-radius:0!important;box-shadow:none!important;color:#000}
+html.paint .cd div::after{display:none}
+html.paint .cd div:nth-child(odd),html.paint .stat:nth-child(odd){transform:rotate(2.5deg)!important}
+html.paint .cd div:nth-child(even),html.paint .stat:nth-child(even){transform:rotate(-2deg)!important}
+html.paint .cd b{color:#f00}html.paint .cd div:nth-child(2) b{color:#0a22ff}html.paint .cd div:nth-child(3) b{color:#00b400}html.paint .cd div:nth-child(4) b{color:#f0f}
+html.paint .stat b{color:#f00!important}html.paint .stat:nth-child(3n+2) b{color:#0a22ff!important}html.paint .stat:nth-child(3n) b{color:#00b400!important}
+html.paint .bcard:nth-child(odd){transform:rotate(-2.5deg)!important}
+html.paint .bcard:nth-child(even){transform:rotate(2deg)!important}
+html.paint .bcard h3{color:#0a22ff}html.paint .bcard:nth-child(2) h3{color:#00b400}html.paint .bcard:nth-child(3) h3{color:#800080}html.paint .bcard:nth-child(4) h3{color:#7b0000}html.paint .bcard:nth-child(5) h3{color:#f00}
+html.paint .bcard h3::before{content:"★ ";color:#fc0;-webkit-text-stroke:1px #000}
+html.paint .face.back{background:#ff0!important;color:#000!important;border:3px solid #000;border-radius:0}
+html.paint .back a{background:#f0f;color:#fff;border-radius:0}
+html.paint .st{stroke:#000}html.paint .st.l{stroke:#f00}html.paint .fl{fill:#f0f}html.paint .fd{fill:#00f}
+html.paint .mat-body{background:#0d0!important;border-radius:0;box-shadow:none;border:3px solid #000;clip-path:none!important}
+html.paint .mat-body::before,html.paint .mat-body::after,html.paint .mat-roll{display:none}
+html.paint .mat-n{color:#000;text-shadow:none}
+html.paint .mat{transform:rotate(-3deg)}html.paint .mat:nth-child(even){transform:rotate(4deg)}
+html.paint .marq{background:linear-gradient(90deg,#f00,#f90,#ff0,#0e0,#0ff,#22f,#f0f);color:#000}
+html.paint .marq svg{fill:#000}
+html.paint .top,html.paint .top.solid{background:#c0c0c0;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:inset 0 -2px 0 #808080,inset 0 2px 0 #fff}
+html.paint .brand b{font-family:inherit;color:#000080}
+html.paint footer{color:#000}
+html.paint footer .f-contact a,html.paint .alt a{color:#00f;text-decoration:underline}
+html.paint .credit{color:#000}html.paint .vh-t{color:#333}
+html.paint .vh b{color:#000}html.paint .vh small{color:#333}
+html.paint footer .wrap::after{content:"לא בקנה מידה";display:block;font-size:12px;color:#555;margin-top:16px}
+html.paint .game-mat{background:#0d0;border-radius:0;border:3px solid #000;box-shadow:none}
+html.paint .game-mat::before{display:none}
+html.paint .gball,html.paint .b-circle{background:#ff22e6;border:3px solid #000;box-shadow:none}
+html.paint .zone{border:3px dashed #f00;background:none}
+html.paint .b-ring,html.paint .b-ring::before{border:2px dashed #00f}
+html.paint .b-text{color:#000}
+html.paint .tl::before,html.paint .tl-prog{background:#f00;width:4px}
+html.paint .tl-i::before{border-radius:0;border-color:#000;background:#ff0}
+html.paint .tl-y{color:#0a22ff;transform:rotate(-2deg);transform-origin:100% 50%}
+html.paint .tl-i:nth-child(odd) .tl-y{color:#f0f}
+html.paint .tl-i p{color:#000}
+html.paint .step h3,html.paint .loc-card h3{color:#f00}
+html.paint .day input:checked+span{background:#ff0!important;transform:rotate(-2deg)}
+html.paint .day input:checked+span b,html.paint .day input:checked+span em{color:#f00}
+html.paint .steps i::after{background:#f00}
+html.paint .sw{color:#f00;font-weight:700}
+html.paint .sw[aria-checked=true] i{background:#f00}
+html.paint .fab{border-radius:0;border:3px solid #000;background:#0c0;box-shadow:none}
+html.paint .toast{background:#ff0;color:#000;border:3px solid #000;border-radius:0}
+html.paint .tk{border-radius:0;border:3px solid #000;background:#0ff;color:#000;box-shadow:none}
+html.paint .tk::before,html.paint .tk::after{display:none}
+html.paint .tk-main h4{color:#f00}html.paint .tk-bar i{background:#000}
+html.paint .tk-side{border-color:#000}
+html.paint .pin{fill:#f00}
 </style>
 </head>
 <body>
@@ -321,18 +537,36 @@ footer .brand svg{width:60px;height:60px}
       <text x="55" y="47" text-anchor="middle" font-family="'Dancing Script',cursive" font-weight="700" font-size="23" fill="#7b3f55" direction="ltr">I.M</text>
       <text x="55" y="69" text-anchor="middle" font-family="'Dancing Script',cursive" font-weight="700" font-size="21" fill="#7b3f55" direction="ltr">Pilates</text>
     </symbol>
-    <symbol id="wa" viewBox="0 0 32 32"><path d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.800 2 6.800L3.300 29l6.600-1.700c1.900 1 4 1.500 6.100 1.500 7.200 0 13-5.700 13-12.800S23.200 3 16 3zm0 23.300c-1.900 0-3.800-.5-5.400-1.500l-.4-.2-3.700 1 1-3.600-.3-.4a10.300 10.300 0 01-1.600-5.600C5.600 10.100 10.300 5.500 16 5.500s10.400 4.600 10.400 10.300S21.700 26.300 16 26.300zm5.700-7.600c-.3-.2-1.800-.9-2.100-1-.3-.1-.5-.2-.7.2l-1 1.200c-.2.2-.4.2-.7.100-1.800-.9-3-1.600-4.200-3.600-.3-.5.3-.5.900-1.700.1-.2 0-.4 0-.5l-1-2.300c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-1 1-1.200 2.300-.9 3.500.5 1.900 2.500 4.800 5.900 6.300 2.100.9 3 .9 4 .7.800-.2 1.800-.9 2.100-1.600.2-.500.2-1 .1-1.100 0 0-.1-.1-.3-.1z"/></symbol>
+    <symbol id="wa" viewBox="0 0 32 32"><path d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.8 2 6.8L3.3 29l6.6-1.7c1.900 1 4 1.500 6.100 1.500 7.200 0 13-5.700 13-12.800S23.200 3 16 3zm0 23.300c-1.900 0-3.800-.5-5.400-1.500l-.4-.2-3.700 1 1-3.600-.3-.4a10.300 10.300 0 01-1.600-5.600C5.600 10.100 10.300 5.500 16 5.500s10.400 4.600 10.400 10.300S21.700 26.300 16 26.300zm5.700-7.600c-.3-.2-1.800-.9-2.100-1-.3-.1-.5-.2-.7.2l-1 1.200c-.2.2-.4.2-.7.100-1.800-.9-3-1.600-4.200-3.600-.3-.5.3-.5.9-1.700.1-.2 0-.4 0-.5l-1-2.300c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-1 1-1.200 2.300-.9 3.500.5 1.900 2.500 4.800 5.900 6.300 2.100.9 3 .9 4 .7.800-.2 1.800-.9 2.100-1.600.2-.500.2-1 .1-1.100 0 0-.1-.1-.3-.1z"/></symbol>
+    <filter id="jag" x="-4%" y="-8%" width="108%" height="116%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="1" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
   </defs>
 </svg>
 
+<div id="intro" aria-hidden="true">
+  <div class="intro-sweep"></div>
+  <div class="intro-t"><b data-i18n="intro.a">סטיב 🤖 פיקצ'רס</b><span data-i18n="intro.b">מציג</span></div>
+  <button type="button" id="skip" data-i18n="skip">דלגי</button>
+</div>
+<canvas id="stage" aria-hidden="true"></canvas>
+<canvas id="fx" aria-hidden="true"></canvas>
 <div id="progress" aria-hidden="true"></div>
+<div id="toasts" role="status" aria-live="polite"></div>
 
 <header class="top" id="top">
   <div class="wrap">
-    <a class="brand" href="#hero" aria-label="I.M Pilates, לראש העמוד"><svg aria-hidden="true"><use href="#logo"/></svg><b>I.M Pilates</b></a>
-    <a class="btn sm" href="#book">להרשמה</a>
+    <a class="brand" href="#hero" aria-label="I.M Pilates"><svg aria-hidden="true"><use href="#logo"/></svg><b>I.M Pilates</b></a>
+    <div class="tools">
+      <select class="ib" id="lang" aria-label="Language / שפה">
+        <option value="he">עברית</option><option value="en">English</option><option value="yi">ייִדיש</option><option value="fr">Français</option><option value="ru">Русский</option>
+      </select>
+      <button class="ib" id="ambBtn" type="button" aria-pressed="false" aria-label="אווירה" title="אווירה">🎧</button>
+      <button class="ib" id="achBtn" type="button" aria-expanded="false" aria-controls="ach" aria-label="הישגים">🏆 <span id="achN" class="ltr">0/9</span></button>
+      <a class="btn sm" href="#book" data-i18n="nav.cta">להרשמה</a>
+    </div>
   </div>
 </header>
+<div class="ach" id="ach" hidden><h4 data-i18n="a.title">הישגים</h4><ul id="achList"></ul></div>
+<button class="btn sm" id="paintOff" type="button" data-i18n="paint.off">כבי את גרסת שגיב</button>
 
 <main>
 <section class="hero" id="hero">
@@ -340,52 +574,70 @@ footer .brand svg{width:60px;height:60px}
   <canvas id="gl" aria-hidden="true"></canvas>
   <canvas id="petals" aria-hidden="true"></canvas>
   <div class="hero-in">
-    <p class="eyebrow" data-hero>ע&nbsp;נ&nbsp;ב&nbsp;ל &nbsp;·&nbsp; אלעד</p>
-    <h1 data-hero><span>פילאטיס</span><span>בוטיק</span></h1>
-    <p class="sub" data-hero>קבוצות קטנות, עד <span data-spots>4</span> משתתפות.<br>יחס אישי ואווירה נעימה.</p>
-    <p data-hero><span class="pill"><i></i>נפתחה קבוצה חדשה בימי שלישי ורביעי ב-10:00</span></p>
+    <p class="eyebrow" data-hero data-i18n="hero.eyebrow">ענבל · אלעד</p>
+    <h1 data-hero><span data-i18n="hero.h1a">פילאטיס</span><span data-i18n="hero.h1b">בוטיק</span></h1>
+    <p class="sub" data-hero data-i18n="hero.sub">קבוצות קטנות, עד <span data-spots>4</span> משתתפות.<br>יחס אישי ואווירה נעימה.</p>
+    <p data-hero><span class="pill"><i></i><span data-i18n="hero.pill">נפתחה קבוצה חדשה בימי שלישי ורביעי ב-10:00</span></span></p>
     <div class="cta-row" data-hero>
-      <a class="btn" href="#book">שרייני לי מזרן</a>
-      <a class="btn ghost" href="#location">איפה זה?</a>
+      <a class="btn" href="#book" data-i18n="hero.cta1">שרייני לי מזרן</a>
+      <a class="btn ghost" href="#location" data-i18n="hero.cta2">איפה זה?</a>
     </div>
+    <p data-hero><button class="sw" id="paintSw" type="button" role="switch" aria-checked="false"><span>🎨</span><span data-i18n="paint.label">גרסת שגיב</span><i></i></button></p>
   </div>
-  <p class="hint" id="heroHint">אפשר לגרור את הכדור</p>
+  <p class="hint" id="heroHint" data-i18n="hero.hint">אפשר לגרור את הכדור</p>
 </section>
 
 <div class="marq" aria-hidden="true"><div class="marq-track" id="marq"></div></div>
 
 <section class="sec count center" id="next">
   <div class="wrap">
-    <p class="kicker" data-reveal>השיעור הקרוב</p>
-    <h2 class="h2" data-reveal>מתחילות בעוד</h2>
+    <p class="kicker" data-reveal data-i18n="count.kicker">השיעור הקרוב</p>
+    <h2 class="h2" data-reveal data-i18n="count.h2">מתחילות בעוד</h2>
     <div class="cd" role="timer" aria-live="off" data-reveal>
-      <div><b id="cdD">--</b><small>ימים</small></div>
-      <div><b id="cdH">--</b><small>שעות</small></div>
-      <div><b id="cdM">--</b><small>דקות</small></div>
-      <div><b id="cdS">--</b><small>שניות</small></div>
+      <div><b id="cdD">--</b><small data-i18n="cd.d">ימים</small></div>
+      <div><b id="cdH">--</b><small data-i18n="cd.h">שעות</small></div>
+      <div><b id="cdM">--</b><small data-i18n="cd.m">דקות</small></div>
+      <div><b id="cdS">--</b><small data-i18n="cd.s">שניות</small></div>
     </div>
     <p class="cd-when" data-reveal><b id="cdWhen">ימי שלישי ורביעי ב-10:00</b></p>
-    <p class="cd-note" data-reveal>ימי שלישי ורביעי ב-10:00 · לפי שעון ישראל</p>
+    <p class="cd-note" data-reveal data-i18n="count.note">ימי שלישי ורביעי ב-10:00 · לפי שעון ישראל</p>
+    <p class="wx" id="wx" hidden><span id="wxT"></span> <small>Open-Meteo</small></p>
+  </div>
+</section>
+
+<section class="sec stats center" id="stats">
+  <div class="wrap">
+    <p class="kicker" data-reveal data-i18n="stats.kicker">הדו״ח השנתי</p>
+    <h2 class="h2" data-reveal data-i18n="stats.h2">המספרים מדברים</h2>
+    <p class="lead" data-reveal data-i18n="stats.lead">נתונים מבוקרים. כולם אמיתיים.</p>
+    <div class="stats-grid">
+      <div class="stat" data-reveal><b id="statSpots" data-to="4">4</b><span data-i18n="s1">מזרנים</span></div>
+      <div class="stat" data-reveal><b data-to="2">2</b><span data-i18n="s2">ימים בשבוע</span></div>
+      <div class="stat" data-reveal><b data-to="1">1</b><span data-i18n="s3">ענבל</span></div>
+      <div class="stat" data-reveal><b data-to="15">15</b><span data-i18n="s4">מספר הבית</span></div>
+      <div class="stat wide" data-reveal><b data-to="10" data-suffix=":00">10:00</b><span data-i18n="s6">בבוקר</span></div>
+      <div class="stat" data-reveal><b data-to="5">5</b><span data-i18n="s5">יתרונות</span></div>
+      <div class="stat" data-reveal><b data-to="0" data-from="99">0</b><span data-i18n="s7">פשרות</span></div>
+    </div>
   </div>
 </section>
 
 <section class="mats center" id="mats">
   <div class="wrap">
-    <p class="kicker">קבוצה קטנה באמת</p>
-    <h2 class="h2">רק <em><span data-spots>4</span></em> מזרנים.</h2>
-    <p class="lead">עד <span data-spots>4</span> מתאמנות בקבוצה. ככה יש יחס אישי לכל אחת, ואווירה נעימה לכולן.</p>
+    <p class="kicker" data-i18n="mats.kicker">קבוצה קטנה באמת</p>
+    <h2 class="h2" data-i18n="mats.h2">רק <em><span data-spots>4</span></em> מזרנים.</h2>
+    <p class="lead" data-i18n="mats.lead">עד <span data-spots>4</span> מתאמנות בקבוצה. ככה יש יחס אישי לכל אחת, ואווירה נעימה לכולן.</p>
     <div class="mat-row" id="matRow" aria-hidden="true"></div>
-    <p class="mats-note">זה לא מונה מקומות פנויים. מה פנוי כרגע? <a href="#book">ענבל תגיד לך</a>.</p>
+    <p class="mats-note" data-i18n="mats.note">זה לא מונה מקומות פנויים. מה פנוי כרגע? <a href="#book">ענבל תגיד לך</a>.</p>
   </div>
 </section>
 
 <section class="sec" id="benefits">
-  <span class="blob" style="width:300px;height:300px;background:#f1d0cc;top:60px;left:-120px" data-par="-90"></span>
   <div class="wrap">
     <div class="center">
-      <p class="kicker" data-reveal>מה מקבלות</p>
-      <h2 class="h2" data-reveal>חמש סיבות טובות</h2>
-      <p class="lead" data-reveal>לחצי על כרטיס כדי להפוך אותו.</p>
+      <p class="kicker" data-reveal data-i18n="ben.kicker">מה מקבלות</p>
+      <h2 class="h2" data-reveal data-i18n="ben.h2">חמש סיבות טובות</h2>
+      <p class="lead" data-reveal data-i18n="ben.lead">לחצי על כרטיס כדי להפוך אותו.</p>
     </div>
     <div class="ben-grid">
       <article class="bcard" tabindex="0" role="button" aria-pressed="false" data-reveal>
@@ -396,9 +648,9 @@ footer .brand svg{width:60px;height:60px}
               <path class="st a-arc1" d="M20 42c3 12 10 18 20 18s17-6 20-18"/>
               <g class="a-lift"><use href="#blossom" x="27" y="12" width="26" height="26" class="fl"/></g>
             </svg>
-            <h3>חיזוק רצפת האגן</h3><span class="more">עוד ↺</span>
+            <h3 data-i18n="b1.t">חיזוק רצפת האגן</h3><span class="more" data-i18n="ben.more">עוד ↺</span>
           </div>
-          <div class="face back"><p>תרגול עדין ומדויק, בקבוצה קטנה ובאווירה נעימה.</p></div>
+          <div class="face back"><p data-i18n="b1.b">תרגול עדין ומדויק, בקבוצה קטנה ובאווירה נעימה.</p></div>
         </div>
       </article>
       <article class="bcard" tabindex="0" role="button" aria-pressed="false" data-reveal>
@@ -413,9 +665,9 @@ footer .brand svg{width:60px;height:60px}
                 <circle class="fl" cx="40" cy="19" r="5"/>
               </g>
             </svg>
-            <h3>שיפור היציבה ושיווי המשקל</h3><span class="more">עוד ↺</span>
+            <h3 data-i18n="b2.t">שיפור היציבה ושיווי המשקל</h3><span class="more" data-i18n="ben.more">עוד ↺</span>
           </div>
-          <div class="face back"><p>רוצה לבדוק את שיווי המשקל שלך? יש כאן משחק קטן.</p><a href="#game">למשחק</a></div>
+          <div class="face back"><p data-i18n="b2.b">רוצה לבדוק את שיווי המשקל שלך? יש כאן משחק קטן.</p><a href="#game" data-i18n="b2.a">למשחק</a></div>
         </div>
       </article>
       <article class="bcard" tabindex="0" role="button" aria-pressed="false" data-reveal>
@@ -426,9 +678,9 @@ footer .brand svg{width:60px;height:60px}
               <rect class="fd a-pad1" x="6" y="31" width="8" height="18" rx="4"/>
               <rect class="fd a-pad2" x="66" y="31" width="8" height="18" rx="4"/>
             </svg>
-            <h3>עיצוב וחיטוב</h3><span class="more">עוד ↺</span>
+            <h3 data-i18n="b3.t">עיצוב וחיטוב</h3><span class="more" data-i18n="ben.more">עוד ↺</span>
           </div>
-          <div class="face back"><p>בקצב שלך, עם יחס אישי מענבל.</p></div>
+          <div class="face back"><p data-i18n="b3.b">בקצב שלך, עם יחס אישי מענבל.</p></div>
         </div>
       </article>
       <article class="bcard" tabindex="0" role="button" aria-pressed="false" data-reveal>
@@ -442,9 +694,9 @@ footer .brand svg{width:60px;height:60px}
               <circle class="fl a-bead" style="--i:3;--d:-6" cx="40" cy="53" r="5"/>
               <circle class="fd a-bead" style="--i:4;--d:5" cx="40" cy="66" r="4.5"/>
             </svg>
-            <h3>מפחית כאבי גב וצוואר</h3><span class="more">עוד ↺</span>
+            <h3 data-i18n="b4.t">מפחית כאבי גב וצוואר</h3><span class="more" data-i18n="ben.more">עוד ↺</span>
           </div>
-          <div class="face back"><p>בקבוצה של עד <span data-spots>4</span> משתתפות, ענבל רואה כל אחת.</p></div>
+          <div class="face back"><p data-i18n="b4.b">בקבוצה של עד <span data-spots>4</span> משתתפות, ענבל רואה כל אחת.</p></div>
         </div>
       </article>
       <article class="bcard" tabindex="0" role="button" aria-pressed="false" data-reveal>
@@ -456,9 +708,9 @@ footer .brand svg{width:60px;height:60px}
               <circle class="st l a-rip d3" cx="40" cy="40" r="34"/>
               <g class="a-spin"><use href="#blossom" x="24" y="24" width="32" height="32" class="fl"/></g>
             </svg>
-            <h3>מניעת סטרס וחרדה</h3><span class="more">עוד ↺</span>
+            <h3 data-i18n="b5.t">מניעת סטרס וחרדה</h3><span class="more" data-i18n="ben.more">עוד ↺</span>
           </div>
-          <div class="face back"><p>רגע של שקט בשבילך. אפשר להתחיל בנשימה, כבר כאן.</p><a href="#breath">לתרגיל הנשימה</a></div>
+          <div class="face back"><p data-i18n="b5.b">רגע של שקט בשבילך. אפשר להתחיל בנשימה, כבר כאן.</p><a href="#breath" data-i18n="b5.a">לתרגיל הנשימה</a></div>
         </div>
       </article>
     </div>
@@ -468,89 +720,68 @@ footer .brand svg{width:60px;height:60px}
 <section class="sec game" id="game">
   <div class="wrap split">
     <div>
-      <p class="kicker" data-reveal>משחק קטן</p>
-      <h2 class="h2" data-reveal>שיווי משקל</h2>
-      <p class="lead" data-reveal id="gameLead">הטי את הטלפון והשאירי את הכדור בתוך העיגול. כמה שניות תחזיקי?</p>
-      <p class="game-msg" id="gameMsg" aria-live="polite">שיפור היציבה ושיווי המשקל מתחיל כאן, בקטנה. את השאר מתרגלים אצל ענבל.</p>
-      <div class="game-actions"><button class="btn" id="gameStart" type="button">יאללה, מתחילות</button></div>
+      <p class="kicker" data-reveal data-i18n="game.kicker">משחק קטן</p>
+      <h2 class="h2" data-reveal data-i18n="game.h2">שיווי משקל</h2>
+      <p class="lead" data-reveal id="gameLead" data-i18n="game.lead">הטי את הטלפון והשאירי את הכדור בתוך העיגול. כמה שניות תחזיקי?</p>
+      <p class="game-msg" id="gameMsg" aria-live="polite" data-i18n="game.msg0">שיפור היציבה ושיווי המשקל מתחיל כאן, בקטנה. את השאר מתרגלים אצל ענבל.</p>
+      <div class="game-actions"><button class="btn" id="gameStart" type="button" data-i18n="game.start">יאללה, מתחילות</button></div>
     </div>
     <div data-reveal>
       <div class="game-stage" id="gameStage">
         <div class="game-mat" id="gameMat"><div class="zone" id="gameZone"></div><div class="gball" id="gBall"></div></div>
       </div>
       <div class="hud">
-        <div><small>עכשיו</small><b><span id="gNow">0.0</span></b></div>
-        <div><small>השיא שלך</small><b><span id="gBest">0.0</span></b></div>
+        <div><small data-i18n="game.now">עכשיו</small><b><span id="gNow">0.0</span></b></div>
+        <div><small data-i18n="game.best">השיא שלך</small><b><span id="gBest">0.0</span></b></div>
       </div>
     </div>
   </div>
 </section>
 
 <section class="sec breath center" id="breath">
-  <span class="blob" style="width:340px;height:340px;background:#f3d6d1;bottom:40px;right:-140px" data-par="80"></span>
   <div class="wrap">
-    <p class="kicker" data-reveal>דקה בשבילך</p>
-    <h2 class="h2" data-reveal>נושמות רגע</h2>
-    <p class="lead" data-reveal>נשימת קופסה: ארבע שניות שאיפה, ארבע החזקה, ארבע נשיפה, ארבע החזקה.</p>
+    <p class="kicker" data-reveal data-i18n="breath.kicker">דקה בשבילך</p>
+    <h2 class="h2" data-reveal data-i18n="breath.h2">נושמות רגע</h2>
+    <p class="lead" data-reveal data-i18n="breath.lead">נשימת קופסה: ארבע שניות שאיפה, ארבע החזקה, ארבע נשיפה, ארבע החזקה.</p>
     <div class="b-stage" data-reveal>
       <div class="b-ring"></div>
       <div class="b-circle" id="bCircle"></div>
-      <div class="b-text"><b id="bCue" aria-live="polite">מוכנה?</b><span id="bNum"></span></div>
+      <div class="b-text"><b id="bCue" aria-live="polite" data-i18n="breath.ready">מוכנה?</b><span id="bNum"></span></div>
     </div>
     <p class="b-meta" id="bMeta"></p>
-    <button class="btn" id="bBtn" type="button" aria-pressed="false">התחילי לנשום</button>
+    <button class="btn" id="bBtn" type="button" aria-pressed="false" data-i18n="breath.btn">התחילי לנשום</button>
   </div>
 </section>
 
-<section class="sec book" id="book">
+<section class="sec history" id="history">
   <div class="wrap">
     <div class="center">
-      <p class="kicker" data-reveal>הרשמה</p>
-      <h2 class="h2" data-reveal>שרייני לך מזרן</h2>
-      <p class="lead" data-reveal>שלושה צעדים קצרים, וההודעה לענבל כבר מוכנה בוואטסאפ.</p>
+      <p class="kicker" data-reveal data-i18n="hist.kicker">סרט תיעודי קצר</p>
+      <h2 class="h2" data-reveal data-i18n="hist.h2">תולדות הפילאטיס</h2>
+      <p class="lead" data-reveal data-i18n="hist.lead">גללי. זה קצר, ונגמר ממש קרוב לבית.</p>
     </div>
-    <form class="book-card" id="bookForm" novalidate data-reveal>
-      <div class="steps" aria-hidden="true"><i class="done"></i><i></i><i></i></div>
-      <div class="step cur" data-step="1">
-        <h3>איזה יום מתאים לך?</h3>
-        <p>אפשר לבחור יום אחד או את שניהם.</p>
-        <div class="days">
-          <label class="day"><input type="checkbox" name="day" value="שלישי"><span><b>שלישי</b><em>10:00</em></span></label>
-          <label class="day"><input type="checkbox" name="day" value="רביעי"><span><b>רביעי</b><em>10:00</em></span></label>
-        </div>
-        <div class="nav"><span></span><button class="btn" type="button" data-next disabled>המשך</button></div>
-      </div>
-      <div class="step" data-step="2">
-        <h3>איך קוראים לך?</h3>
-        <p>כדי שענבל תדע מי פונה אליה.</p>
-        <label class="f" for="fName">שם</label>
-        <input class="inp" id="fName" name="name" type="text" autocomplete="name" maxlength="60" enterkeyhint="next">
-        <label class="f" for="fNote">הערה <small>(לא חובה)</small></label>
-        <textarea class="inp" id="fNote" name="note" maxlength="300" rows="2"></textarea>
-        <div class="nav"><button class="link" type="button" data-back>חזרה</button><button class="btn" type="button" data-next disabled>המשך</button></div>
-      </div>
-      <div class="step" data-step="3">
-        <h3>זו ההודעה שתישלח</h3>
-        <p>נפתח וואטסאפ עם ההודעה מוכנה. נשאר רק ללחוץ שליחה.</p>
-        <div class="bubble" id="waPreview"></div>
-        <div class="nav"><button class="link" type="button" data-back>עריכה</button>
-          <a class="btn wa" id="waLink" rel="noopener" href="https://wa.me/972515445260?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%A0%D7%91%D7%9C%20%F0%9F%8C%B8%0A%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%94%D7%A6%D7%98%D7%A8%D7%A3%20%D7%9C%D7%A4%D7%99%D7%9C%D7%90%D7%98%D7%99%D7%A1%20%D7%91%D7%95%D7%98%D7%99%D7%A7."><svg aria-hidden="true" fill="#fff"><use href="#wa"/></svg>שליחה בוואטסאפ</a></div>
-      </div>
-      <p class="alt">מעדיפה לדבר? <a href="tel:+972515445260">ענבל · <bdi dir="ltr" class="ltr">051-5445260</bdi></a></p>
-    </form>
+    <div class="tl">
+      <span class="tl-prog" aria-hidden="true"></span>
+      <div class="tl-i" data-reveal><span class="tl-y"><bdi dir="ltr">1883</bdi></span><p data-i18n="h1.t">יוזף פילאטיס נולד במנשנגלדבך, גרמניה.</p></div>
+      <div class="tl-i" data-reveal><span class="tl-y"><bdi dir="ltr">1914–1918</bdi></span><p data-i18n="h2.t">מלחמת העולם הראשונה. בזמן שהוא מוחזק במחנה מעצר בבריטניה, הוא מפתח את השיטה שלו.</p></div>
+      <div class="tl-i" data-reveal><span class="tl-y" data-i18n="h3.y">שנות ה-20</span><p data-i18n="h3.t">הוא פותח סטודיו בניו יורק, יחד עם קלרה.</p></div>
+      <div class="tl-i" data-reveal><span class="tl-y sm"><bdi dir="ltr">“Contrology”</bdi></span><p data-i18n="h4.t">לשיטה שלו הוא קורא „קונטרולוגיה“.</p></div>
+      <div class="tl-i" data-reveal><span class="tl-y"><bdi dir="ltr">1967</bdi></span><p data-i18n="h5.t">יוזף פילאטיס הולך לעולמו. השיטה ממשיכה.</p></div>
+      <div class="tl-i fin" data-reveal><span class="tl-y"><bdi dir="ltr">2026</bdi></span><p><b data-i18n="h6.t">שמאי 15, אלעד · ענבל</b><br><span data-i18n="h6.s">קבוצה חדשה. ימי שלישי ורביעי ב-10:00.</span></p><a class="btn sm" href="#book" data-i18n="hero.cta1">שרייני לי מזרן</a></div>
+    </div>
   </div>
 </section>
 
 <section class="sec" id="location">
   <div class="wrap">
-    <p class="kicker" data-reveal>איפה</p>
-    <h2 class="h2" data-reveal>נפגשות כאן</h2>
+    <p class="kicker" data-reveal data-i18n="loc.kicker">איפה</p>
+    <h2 class="h2" data-reveal data-i18n="loc.h2">נפגשות כאן</h2>
     <div class="loc-grid">
       <div class="loc-card" data-reveal>
-        <h3>שמאי 15, אלעד</h3>
-        <p>ימי שלישי ורביעי ב-10:00</p>
+        <h3 data-i18n="loc.addr">שמאי 15, אלעד</h3>
+        <p data-i18n="loc.when">ימי שלישי ורביעי ב-10:00</p>
         <div class="loc-btns">
-          <a class="btn" id="wazeLink" rel="noopener" target="_blank" href="https://waze.com/ul?q=%D7%A9%D7%9E%D7%90%D7%99%2015%20%D7%90%D7%9C%D7%A2%D7%93&navigate=yes">נווטו בוויז</a>
+          <a class="btn" id="wazeLink" rel="noopener" target="_blank" href="https://waze.com/ul?q=%D7%A9%D7%9E%D7%90%D7%99%2015%20%D7%90%D7%9C%D7%A2%D7%93&navigate=yes" data-i18n="loc.waze">נווטו בוויז</a>
           <a class="btn ghost" id="gmapLink" rel="noopener" target="_blank" href="https://www.google.com/maps/search/?api=1&query=%D7%A9%D7%9E%D7%90%D7%99%2015%20%D7%90%D7%9C%D7%A2%D7%93">Google Maps</a>
         </div>
       </div>
@@ -560,26 +791,109 @@ footer .brand svg{width:60px;height:60px}
     </div>
   </div>
 </section>
+
+<section class="sec book" id="book">
+  <div class="wrap">
+    <div class="center">
+      <p class="kicker" data-reveal data-i18n="book.kicker">הרשמה</p>
+      <h2 class="h2" data-reveal data-i18n="book.h2">שרייני לך מזרן</h2>
+      <p class="lead" data-reveal data-i18n="book.lead">שלושה צעדים קצרים, וההודעה לענבל כבר מוכנה בוואטסאפ.</p>
+    </div>
+    <form class="book-card" id="bookForm" novalidate data-reveal>
+      <div class="steps" aria-hidden="true"><i class="done"></i><i></i><i></i></div>
+      <div class="step cur" data-step="1">
+        <h3 data-i18n="s1.h">איזה יום מתאים לך?</h3>
+        <p data-i18n="s1.p">אפשר לבחור יום אחד או את שניהם.</p>
+        <div class="days">
+          <label class="day"><input type="checkbox" name="day" value="שלישי"><span><b data-i18n="day.tue">שלישי</b><em>10:00</em></span></label>
+          <label class="day"><input type="checkbox" name="day" value="רביעי"><span><b data-i18n="day.wed">רביעי</b><em>10:00</em></span></label>
+        </div>
+        <div class="nav"><span></span><button class="btn" type="button" data-next disabled data-i18n="next">המשך</button></div>
+      </div>
+      <div class="step" data-step="2">
+        <h3 data-i18n="s2.h">איך קוראים לך?</h3>
+        <p data-i18n="s2.p">כדי שענבל תדע מי פונה אליה.</p>
+        <label class="f" for="fName" data-i18n="f.name">שם</label>
+        <input class="inp" id="fName" name="name" type="text" autocomplete="name" maxlength="60" enterkeyhint="next">
+        <label class="f" for="fNote" data-i18n="f.note">הערה <small>(לא חובה)</small></label>
+        <textarea class="inp" id="fNote" name="note" maxlength="300" rows="2"></textarea>
+        <div class="nav"><button class="link" type="button" data-back data-i18n="back">חזרה</button><button class="btn" type="button" data-next disabled data-i18n="next">המשך</button></div>
+      </div>
+      <div class="step" data-step="3">
+        <h3 data-i18n="s3.h">זו ההודעה שתישלח</h3>
+        <p data-i18n="s3.p">נפתח וואטסאפ עם ההודעה מוכנה. נשאר רק ללחוץ שליחה.</p>
+        <div class="bubble" id="waPreview" dir="rtl" lang="he"></div>
+        <div class="nav"><button class="link" type="button" data-back data-i18n="edit">עריכה</button>
+          <a class="btn wa" id="waLink" rel="noopener" href="https://wa.me/972515445260?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%A0%D7%91%D7%9C%20%F0%9F%8C%B8%0A%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%94%D7%A6%D7%98%D7%A8%D7%A3%20%D7%9C%D7%A4%D7%99%D7%9C%D7%90%D7%98%D7%99%D7%A1%20%D7%91%D7%95%D7%98%D7%99%D7%A7."><svg aria-hidden="true" fill="#fff"><use href="#wa"/></svg><span data-i18n="wa.send">שליחה בוואטסאפ</span></a></div>
+        <div class="tk-block" id="tkBlock" hidden>
+          <h3 data-i18n="ticket.h">והנה הכרטיס שלך</h3>
+          <div class="tk-wrap" id="tkWrap">
+            <div class="tk" id="tk">
+              <div class="tk-main">
+                <small data-i18n="tk.title">כרטיס כניסה</small>
+                <h4 id="tkName"></h4>
+                <dl>
+                  <dt data-i18n="tk.when">מתי</dt><dd id="tkWhen"></dd>
+                  <dt data-i18n="loc.kicker">איפה</dt><dd data-i18n="loc.addr">שמאי 15, אלעד</dd>
+                </dl>
+                <p class="tk-admit" data-i18n="tk.admit">כניסה: אחת</p>
+              </div>
+              <div class="tk-side"><span class="tk-logo">I.M Pilates</span><span class="tk-bar" id="tkBar"></span><span class="tk-no ltr" id="tkNo"></span></div>
+            </div>
+          </div>
+          <p class="tk-note" data-i18n="ticket.note">כרטיס חגיגי למזכרת. ההרשמה עצמה נסגרת עם ענבל בוואטסאפ.</p>
+          <div class="tk-actions">
+            <button class="btn ghost sm" type="button" id="tkDl" data-i18n="ticket.dl">הורידי כרטיס</button>
+          </div>
+          <h3 class="cal-h" data-i18n="cal.h">ושלא תשכחי</h3>
+          <div class="tk-actions">
+            <a class="btn ghost sm" id="icsLink" download="pilates-inbal.ics" href="#" data-i18n="cal.ics">הוספה ליומן</a>
+            <a class="btn ghost sm" id="gcalLink" rel="noopener" target="_blank" href="#">Google Calendar</a>
+          </div>
+        </div>
+      </div>
+      <p class="alt"><span data-i18n="alt.q">מעדיפה לדבר?</span> <a href="tel:+972515445260"><span data-i18n="inbal">ענבל</span> · <bdi dir="ltr" class="ltr">051-5445260</bdi></a></p>
+    </form>
+  </div>
+</section>
 </main>
 
 <footer>
   <div class="wrap">
     <a class="brand" href="#hero" aria-label="I.M Pilates"><svg aria-hidden="true"><use href="#logo"/></svg></a>
-    <p class="f-contact">פילאטיס בוטיק · שמאי 15, אלעד<br><a href="tel:+972515445260">ענבל · <bdi dir="ltr" class="ltr">051-5445260</bdi></a></p>
-    <p class="credit">עוצב ונבנה ע״י סטיב 🤖, העוזר של שגיב</p>
-    <button class="vh-t" id="vhT" type="button" aria-expanded="false" aria-controls="vh">היסטוריית גרסאות</button>
-    <div class="vh" id="vh" hidden>
+    <p class="f-contact"><span data-i18n="foot.tag">פילאטיס בוטיק · שמאי 15, אלעד</span><br><a href="tel:+972515445260"><span data-i18n="inbal">ענבל</span> · <bdi dir="ltr" class="ltr">051-5445260</bdi></a></p>
+    <p class="credit" data-i18n="foot.credit">עוצב ונבנה ע״י סטיב 🤖, העוזר של שגיב</p>
+    <button class="vh-t" id="kitT" type="button" aria-expanded="false" aria-controls="kit" data-i18n="kit.toggle">לענבל: ערכת שיווק</button>
+    <div class="vh kit" id="kit" hidden>
+      <button class="btn ghost sm" type="button" data-kit="story" data-i18n="kit.story">סטורי לוואטסאפ (1080×1920)</button>
+      <button class="btn ghost sm" type="button" data-kit="post" data-i18n="kit.post">פוסט מרובע (1080×1080)</button>
+      <button class="btn ghost sm" type="button" data-kit="print" data-i18n="kit.print">הדפיסי פלאייר (A4)</button>
+    </div>
+    <button class="vh-t" id="vhT" type="button" aria-expanded="false" aria-controls="vh" data-i18n="vh.toggle">היסטוריית גרסאות</button>
+    <div class="vh" id="vh" hidden dir="rtl" lang="he">
       <ol>
         <li><button class="th" type="button" data-full="v1-paint.png" aria-label="הגדלת גרסה 1"><img src="v1-paint.png" alt="גרסה 1, צוירה ב-MS Paint" loading="lazy" width="64" height="84"></button><div><b><span class="ltr">v1</span> · שגיב · <span class="ltr">MS Paint</span></b><small>שעתיים עבודה</small></div></li>
         <li><button class="th" type="button" data-full="v2-gemini.jpg" aria-label="הגדלת גרסה 2"><img src="v2-gemini.jpg" alt="גרסה 2, מודעה של Gemini" loading="lazy" width="64" height="84"></button><div><b><span class="ltr">v2</span> · <span class="ltr">Gemini</span></b><small>מודעה אחת, יפה</small></div></li>
-        <li><span class="now" aria-hidden="true">🤖</span><div><b><span class="ltr">v3</span> · סטיב 🤖 · יצא מהמקלחת</b><small>האתר הזה. הגרסה הנוכחית.</small></div></li>
+        <li><span class="now old" aria-hidden="true">🤖</span><div><b><span class="ltr">v3</span> · סטיב 🤖 · יצא מהמקלחת</b><small>אתר שלם. אמרו שזה לא מספיק.</small></div></li>
+        <li><span class="now" aria-hidden="true">🤖</span><div><b><span class="ltr">v4</span> · סטיב · אחרי שאמרו לו שזה לא מספיק מוגזם</b><small>האתר הזה. הגרסה הנוכחית.</small></div></li>
       </ol>
     </div>
   </div>
 </footer>
 
-<a class="fab" id="fab" href="#book" aria-label="להרשמה בוואטסאפ"><svg aria-hidden="true"><use href="#wa"/></svg></a>
-<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="תמונה מוגדלת"><button type="button" id="lbX" aria-label="סגירה">×</button><img id="lbImg" alt=""></div>
+<a class="fab" id="fab" href="#book" aria-label="WhatsApp"><svg aria-hidden="true"><use href="#wa"/></svg></a>
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="תמונה מוגדלת"><button type="button" id="lbX" aria-label="סגירה">×</button><img id="lbImg" alt=""><p id="lbHint"></p></div>
+
+<div class="flyer" aria-hidden="true">
+  <svg class="fl-logo" viewBox="0 0 100 100"><use href="#logo"/></svg>
+  <h1><span data-i18n="hero.h1a">פילאטיס</span> <span data-i18n="hero.h1b">בוטיק</span></h1>
+  <p class="fl-pill" data-i18n="k.small">קבוצות קטנות עד <span data-spots>4</span> משתתפות</p>
+  <p class="fl-vibe" data-i18n="k.vibe">יחס אישי · אווירה נעימה</p>
+  <div class="fl-ball"></div>
+  <ul><li data-i18n="b1.t"></li><li data-i18n="b2.t"></li><li data-i18n="b3.t"></li><li data-i18n="b4.t"></li><li data-i18n="b5.t"></li></ul>
+  <p class="fl-new"><b data-i18n="k.new">נפתחה קבוצה חדשה</b><span data-i18n="loc.when"></span><span data-i18n="loc.addr"></span></p>
+  <p class="fl-cta"><span data-i18n="k.cta">לפרטים ולהצטרפות · ענבל</span><b><bdi dir="ltr">051-5445260</bdi></b></p>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -607,6 +921,272 @@ var store = {
 document.documentElement.classList.add('js');
 document.documentElement.style.setProperty('--spots', MAX_SPOTS);
 $$('[data-spots]').forEach(function(el){ el.textContent = MAX_SPOTS; });
+
+/* ================= languages ================= */
+var LANGS = { he: { dir: 'rtl', loc: 'he-IL' }, en: { dir: 'ltr', loc: 'en-GB' }, yi: { dir: 'rtl', loc: 'yi' }, fr: { dir: 'ltr', loc: 'fr-FR' }, ru: { dir: 'ltr', loc: 'ru-RU' } };
+var LANG = 'he';
+var D = {
+he: {
+  'm.small': 'קבוצות קטנות', 'm.att': 'יחס אישי', 'm.vibe': 'אווירה נעימה', 'm.upto': 'עד {n} משתתפות', 'm.brand': 'פילאטיס בוטיק', 'm.when': 'שלישי ורביעי ב-10:00',
+  'game.leadMouse': 'הזיזי את העכבר מעל המזרן כדי להטות אותו, והשאירי את הכדור בתוך העיגול. כמה שניות תחזיקי?',
+  'game.again': 'עוד סיבוב', 'game.holding': 'מחזיקות...', 'game.hintTilt': 'הטי בעדינות. הכדור אוהב להתגלגל.', 'game.hintTouch': 'גררי אצבע על המזרן כדי להטות אותו.', 'game.hintMouse': 'העכבר מטה את המזרן. בעדינות.',
+  'game.result': '{s} שניות בתוך העיגול', 'game.record': ', שיא חדש 🌸 ', 'game.l1': 'זה בסדר גמור, בשביל זה יש שיעורים.', 'game.l2': 'יציבה לא רעה בכלל.', 'game.l3': 'וואו, שיווי משקל של ממש.', 'game.l4': 'ענבל, יש לנו כאן כישרון.',
+  'breath.stop': 'עצירה', 'breath.in': 'שאיפה', 'breath.hold': 'החזקה', 'breath.out': 'נשיפה', 'breath.round': 'סבב {n}', 'breath.done': 'יופי', 'breath.total': 'נשמת {n} סבבים מלאים',
+  'days.one': 'יום {d}', 'days.both': 'ימי שלישי ורביעי',
+  'cal.title': 'פילאטיס בוטיק עם ענבל',
+  'w.sun': 'צפוי {t}° ושמש. מושלם לפילאטיס.', 'w.cloud': 'צפוי {t}° ומעונן. בפנים תמיד נעים.', 'w.rain': 'צפוי {t}° וגשם. אצלנו יבש ונעים.', 'w.other': 'צפוי {t}°. פילאטיס מתאים לכל מזג אוויר.',
+  'kit.hint': 'לחיצה ארוכה על התמונה כדי לשמור',
+  't.paint': 'הופעלה גרסת שגיב. מומלץ לכבות.',
+  'a.end': 'גללת עד הסוף 🏅', 'a.bal': 'שיווי משקל 10 שניות 🏆', 'a.paint': 'הפעלת גרסת שגיב 😬', 'a.vh': 'גילית את היסטוריית הגרסאות 🕵️', 'a.breath': 'סבב נשימה מלא 🌬️', 'a.lang': 'פוליגלוטית 🌍', 'a.storm': 'סופת פריחה 🌸', 'a.ticket': 'כרטיס ביד 🎟️', 'a.amb': 'אווירה מופעלת 🎧',
+  'amb.label': 'אווירה'
+},
+en: {
+  'intro.a': 'Steve 🤖 Pictures', 'intro.b': 'presents', 'skip': 'Skip',
+  'nav.cta': 'Sign up', 'hero.eyebrow': 'INBAL · ELAD', 'hero.h1a': 'Boutique', 'hero.h1b': 'Pilates',
+  'hero.sub': 'Small groups, up to {n} women.<br>Personal attention, a pleasant atmosphere.',
+  'hero.pill': 'New group now open: Tuesdays & Wednesdays at 10:00', 'hero.cta1': 'Save me a mat', 'hero.cta2': 'Where is it?', 'hero.hint': 'You can drag the ball',
+  'paint.label': "Sagiv's version", 'paint.off': "Turn off Sagiv's version",
+  'count.kicker': 'Next class', 'count.h2': 'We start in', 'cd.d': 'days', 'cd.h': 'hours', 'cd.m': 'minutes', 'cd.s': 'seconds', 'count.note': 'Tuesdays & Wednesdays at 10:00 · Israel time',
+  'stats.kicker': 'Annual report', 'stats.h2': 'The numbers speak', 'stats.lead': 'Audited figures. All of them true.',
+  's1': 'mats', 's2': 'days a week', 's3': 'Inbal', 's4': 'the house number', 's5': 'benefits', 's6': 'in the morning', 's7': 'compromises',
+  'mats.kicker': 'A truly small group', 'mats.h2': 'Only <em>{n}</em> mats.', 'mats.lead': 'Up to {n} women in a group. Each one gets personal attention, and everyone gets a pleasant atmosphere.',
+  'mats.note': 'This is not a live availability counter. What is free right now? <a href="#book">Inbal will tell you</a>.',
+  'ben.kicker': 'What you get', 'ben.h2': 'Five good reasons', 'ben.lead': 'Tap a card to flip it.', 'ben.more': 'More ↺',
+  'b1.t': 'Pelvic floor strengthening', 'b1.b': 'Gentle, precise practice in a small group with a pleasant atmosphere.',
+  'b2.t': 'Better posture and balance', 'b2.b': 'Want to test your balance? There is a little game here.', 'b2.a': 'Play',
+  'b3.t': 'Shaping and toning', 'b3.b': "At your pace, with Inbal's personal attention.",
+  'b4.t': 'Eases back and neck pain', 'b4.b': 'In a group of up to {n}, Inbal sees each one.',
+  'b5.t': 'Helps prevent stress and anxiety', 'b5.b': 'A quiet moment for you. You can start with a breath, right here.', 'b5.a': 'To the breathing exercise',
+  'game.kicker': 'A little game', 'game.h2': 'Balance', 'game.lead': 'Tilt your phone and keep the ball inside the circle. How many seconds can you hold?',
+  'game.leadMouse': 'Move the mouse over the mat to tilt it, and keep the ball inside the circle. How many seconds can you hold?',
+  'game.msg0': 'Better posture and balance start here, in miniature. The rest you practise with Inbal.', 'game.start': "Let's go", 'game.now': 'Now', 'game.best': 'Your best',
+  'game.again': 'One more round', 'game.holding': 'Holding...', 'game.hintTilt': 'Tilt gently. The ball loves to roll.', 'game.hintTouch': 'Drag a finger on the mat to tilt it.', 'game.hintMouse': 'The mouse tilts the mat. Gently.',
+  'game.result': '{s} seconds inside the circle', 'game.record': ', a new best 🌸 ', 'game.l1': 'Perfectly fine. That is what classes are for.', 'game.l2': 'Not bad at all.', 'game.l3': 'Wow, real balance.', 'game.l4': 'Inbal, we have a talent here.',
+  'breath.kicker': 'A minute for you', 'breath.h2': 'Just breathe', 'breath.lead': 'Box breathing: four seconds in, four hold, four out, four hold.', 'breath.ready': 'Ready?', 'breath.btn': 'Start breathing',
+  'breath.stop': 'Stop', 'breath.in': 'Inhale', 'breath.hold': 'Hold', 'breath.out': 'Exhale', 'breath.round': 'Round {n}', 'breath.done': 'Lovely', 'breath.total': 'Full rounds breathed: {n}',
+  'hist.kicker': 'A short documentary', 'hist.h2': 'A brief history of Pilates', 'hist.lead': 'Scroll on. It is short, and it ends very close to home.',
+  'h1.t': 'Joseph Pilates is born in Mönchengladbach, Germany.', 'h2.t': 'The First World War. While interned in Britain, he develops his method.', 'h3.y': '1920s', 'h3.t': 'He opens a studio in New York, together with Clara.',
+  'h4.t': 'He calls his method “Contrology”.', 'h5.t': 'Joseph Pilates passes away. The method lives on.', 'h6.t': 'Shamai 15, Elad · Inbal', 'h6.s': 'A new group. Tuesdays & Wednesdays at 10:00.',
+  'loc.kicker': 'Where', 'loc.h2': 'We meet here', 'loc.addr': 'Shamai 15, Elad', 'loc.when': 'Tuesdays & Wednesdays at 10:00', 'loc.waze': 'Navigate with Waze',
+  'book.kicker': 'Sign up', 'book.h2': 'Save yourself a mat', 'book.lead': 'Three short steps, and your message to Inbal is ready in WhatsApp.',
+  's1.h': 'Which day suits you?', 's1.p': 'Pick one day or both.', 'day.tue': 'Tuesday', 'day.wed': 'Wednesday', 'next': 'Continue', 'back': 'Back',
+  's2.h': 'What is your name?', 's2.p': 'So Inbal knows who is writing.', 'f.name': 'Name', 'f.note': 'Note <small>(optional)</small>',
+  's3.h': 'This is the message that will be sent', 's3.p': 'WhatsApp opens with the message ready (in Hebrew, for Inbal). Just press send.', 'edit': 'Edit', 'wa.send': 'Send on WhatsApp',
+  'alt.q': 'Prefer to talk?', 'inbal': 'Inbal',
+  'ticket.h': 'And here is your ticket', 'ticket.note': 'A keepsake ticket. The booking itself is settled with Inbal on WhatsApp.', 'ticket.dl': 'Download ticket',
+  'tk.title': 'ADMISSION TICKET', 'tk.when': 'When', 'tk.admit': 'ADMIT ONE', 'days.one': '{d}', 'days.both': 'Tuesday & Wednesday',
+  'cal.h': 'So you do not forget', 'cal.ics': 'Add to calendar', 'cal.title': 'Boutique Pilates with Inbal',
+  'w.sun': '{t}° and sunny expected. Perfect for Pilates.', 'w.cloud': '{t}° and cloudy expected. Always pleasant inside.', 'w.rain': '{t}° and rain expected. Dry and pleasant inside.', 'w.other': '{t}° expected. Pilates suits any weather.',
+  'kit.toggle': 'For Inbal: marketing kit', 'kit.story': 'WhatsApp Status story (1080×1920)', 'kit.post': 'Square post (1080×1080)', 'kit.print': 'Print flyer (A4)', 'kit.hint': 'Long-press the image to save it',
+  'k.small': 'Small groups, up to {n} women', 'k.vibe': 'Personal attention · Pleasant atmosphere', 'k.new': 'New group now open', 'k.cta': 'Details & sign-up · Inbal',
+  'foot.tag': 'Boutique Pilates · Shamai 15, Elad', 'foot.credit': "Designed and built by Steve 🤖, Sagiv's assistant", 'vh.toggle': 'Version history',
+  't.paint': "Sagiv's version is on. Turning it off is recommended.",
+  'a.title': 'Achievements', 'a.end': 'Scrolled to the very end 🏅', 'a.bal': '10 seconds of balance 🏆', 'a.paint': "You turned on Sagiv's version 😬", 'a.vh': 'You found the version history 🕵️', 'a.breath': 'A full breathing round 🌬️', 'a.lang': 'Polyglot 🌍', 'a.storm': 'Blossom storm 🌸', 'a.ticket': 'Ticket in hand 🎟️', 'a.amb': 'Ambience on 🎧',
+  'amb.label': 'Ambience',
+  'm.small': 'Small groups', 'm.att': 'Personal attention', 'm.vibe': 'Pleasant atmosphere', 'm.upto': 'Up to {n} women', 'm.brand': 'Boutique Pilates', 'm.when': 'Tue & Wed at 10:00'
+},
+yi: {
+  'intro.a': 'סטיוו 🤖 פּיקטשערס', 'intro.b': 'ווײַזט', 'skip': 'איבערהיפּן',
+  'nav.cta': 'אײַנשרײַבן', 'hero.eyebrow': 'ענבל · אלעד', 'hero.h1a': 'בוטיק', 'hero.h1b': 'פּילאַטעס',
+  'hero.sub': 'קליינע גרופּעס, ביז {n} פֿרויען.<br>פּערזענלעכע אויפֿמערקזאַמקייט און אַן אָנגענעמע אַטמאָספֿער.',
+  'hero.pill': 'אַ נײַע גרופּע: דינסטיק און מיטוואָך, 10:00', 'hero.cta1': 'האַלט מיר אַ פּלאַץ', 'hero.cta2': 'וווּ איז עס?', 'hero.hint': 'מע קען דרייען די פּילקע',
+  'paint.label': 'שגיבס ווערסיע', 'paint.off': 'לעש אויס שגיבס ווערסיע',
+  'count.kicker': 'דער קומענדיקער שיעור', 'count.h2': 'מע הייבט אָן אין', 'cd.d': 'טעג', 'cd.h': 'שעהען', 'cd.m': 'מינוטן', 'cd.s': 'סעקונדעס', 'count.note': 'דינסטיק און מיטוואָך, 10:00 · ישׂראל־צײַט',
+  'stats.kicker': 'יערלעכער באַריכט', 'stats.h2': 'די ציפֿערן רעדן', 'stats.lead': 'געפּרוּווטע ציפֿערן. אַלע זענען אמת.',
+  's1': 'מאַטעס', 's2': 'טעג אַ וואָך', 's3': 'ענבל', 's4': 'דער הויז־נומער', 's5': 'מעלות', 's6': 'אין דער פֿרי', 's7': 'פּשרות',
+  'mats.kicker': 'טאַקע אַ קליינע גרופּע', 'mats.h2': 'בלויז <em>{n}</em> מאַטעס.', 'mats.lead': 'ביז {n} פֿרויען אין אַ גרופּע. אַזוי באַקומט יעדע איינע פּערזענלעכע אויפֿמערקזאַמקייט.',
+  'mats.note': 'דאָס איז נישט קיין ציילער פֿון פֿרײַע פּלעצער. <a href="#book">פֿרעג ענבל</a>.',
+  'ben.kicker': 'וואָס מע באַקומט', 'ben.h2': 'פֿינף גוטע סיבות', 'ben.lead': 'דריק אויף אַ קאַרטל עס אומצודרייען.', 'ben.more': 'מער ↺',
+  'b1.t': 'שטאַרקט דעם בעקן־באָדן', 'b1.b': 'איידעלע און פּינקטלעכע איבונגען, אין אַ קליינער גרופּע.',
+  'b2.t': 'בעסערע האַלטונג און גלײַכגעוויכט', 'b2.b': 'ווילסט פּרוּוון דײַן גלײַכגעוויכט? דאָ איז דאָ אַ קליין שפּיל.', 'b2.a': 'צום שפּיל',
+  'b3.t': 'פֿאָרעם און טאָנוס', 'b3.b': 'אין דײַן טעמפּ, מיט ענבלס פּערזענלעכער אויפֿמערקזאַמקייט.',
+  'b4.t': 'ווייניקער רוקן־ און האַלדז־ווייטיקן', 'b4.b': 'אין אַ גרופּע פֿון ביז {n} זעט ענבל יעדע איינע.',
+  'b5.t': 'קעגן סטרעס און אומרו', 'b5.b': 'אַ רגע רו פֿאַר דיר. מע קען אָנהייבן מיט אַן אָטעם, שוין דאָ.', 'b5.a': 'צו דער אָטעם־איבונג',
+  'game.kicker': 'אַ קליין שפּיל', 'game.h2': 'גלײַכגעוויכט', 'game.lead': 'בייג דעם טעלעפֿאָן און האַלט די פּילקע אינעם קרייז. וויפֿל סעקונדעס קענסטו?',
+  'game.leadMouse': 'באַוועג די מויז איבער דער מאַטע און האַלט די פּילקע אינעם קרייז. וויפֿל סעקונדעס קענסטו?',
+  'game.msg0': 'בעסערע האַלטונג און גלײַכגעוויכט הייבן זיך אָן דאָ. דאָס איבעריקע לערנט מען בײַ ענבל.', 'game.start': 'לאָמיר אָנהייבן', 'game.now': 'איצט', 'game.best': 'דײַן רעקאָרד',
+  'game.again': 'נאָך אַ מאָל', 'game.holding': 'מע האַלט...', 'game.hintTilt': 'בייג איידל. די פּילקע האָט ליב זיך צו קײַקלען.', 'game.hintTouch': 'פֿיר אַ פֿינגער איבער דער מאַטע.', 'game.hintMouse': 'די מויז בייגט די מאַטע. איידל.',
+  'game.result': '{s} סעקונדעס אינעם קרייז', 'game.record': ', אַ נײַער רעקאָרד 🌸 ', 'game.l1': 'גאַנץ גוט. דערפֿאַר זענען דאָ שיעורים.', 'game.l2': 'גאָר נישט שלעכט.', 'game.l3': 'וואַו, אַן אמת גלײַכגעוויכט.', 'game.l4': 'ענבל, מיר האָבן דאָ אַ טאַלאַנט.',
+  'breath.kicker': 'אַ מינוט פֿאַר דיר', 'breath.h2': 'אָטעמען אַ רגע', 'breath.lead': 'קעסטל־אָטעמען: פֿיר סעקונדעס אײַן, פֿיר האַלטן, פֿיר אַרויס, פֿיר האַלטן.', 'breath.ready': 'גרייט?', 'breath.btn': 'הייב אָן אָטעמען',
+  'breath.stop': 'אָפּשטעלן', 'breath.in': 'אײַנאָטעמען', 'breath.hold': 'האַלטן', 'breath.out': 'אויסאָטעמען', 'breath.round': 'רונדע {n}', 'breath.done': 'שיין', 'breath.total': '{n} פֿולע רונדעס',
+  'hist.kicker': 'אַ קורצער דאָקומענטאַר', 'hist.h2': 'די געשיכטע פֿון פּילאַטעס', 'hist.lead': 'ס׳איז קורץ, און עס ענדיקט זיך גאָר נאָענט צו דער היים.',
+  'h1.t': 'יוסף פּילאַטעס ווערט געבוירן אין מענכנגלאַדבאַך, דײַטשלאַנד.', 'h2.t': 'די ערשטע וועלט־מלחמה. אינטערנירט אין בריטאַניע, אַנטוויקלט ער זײַן מעטאָד.', 'h3.y': 'די 1920ער', 'h3.t': 'ער עפֿנט אַ סטודיאָ אין ניו־יאָרק, צוזאַמען מיט קלאַראַ.',
+  'h4.t': 'ער רופֿט זײַן מעטאָד „קאָנטראָלאָגיע“.', 'h5.t': 'יוסף פּילאַטעס שטאַרבט. דער מעטאָד לעבט ווײַטער.', 'h6.t': 'שמאי 15, אלעד · ענבל', 'h6.s': 'אַ נײַע גרופּע. דינסטיק און מיטוואָך, 10:00.',
+  'loc.kicker': 'וווּ', 'loc.h2': 'דאָ טרעפֿט מען זיך', 'loc.addr': 'שמאי 15, אלעד', 'loc.when': 'דינסטיק און מיטוואָך, 10:00', 'loc.waze': 'פֿאָרן מיט Waze',
+  'book.kicker': 'אײַנשרײַבן', 'book.h2': 'פֿאַרזיכער זיך אַ פּלאַץ', 'book.lead': 'דרײַ קורצע טריט, און די הודעה צו ענבל איז גרייט אין וואַטסאַפּ.',
+  's1.h': 'וועלכער טאָג פּאַסט דיר?', 's1.p': 'מע קען אויסקלײַבן איין טאָג אָדער ביידע.', 'day.tue': 'דינסטיק', 'day.wed': 'מיטוואָך', 'next': 'ווײַטער', 'back': 'צוריק',
+  's2.h': 'ווי הייסטו?', 's2.p': 'כּדי ענבל זאָל וויסן ווער עס שרײַבט.', 'f.name': 'נאָמען', 'f.note': 'באַמערקונג <small>(נישט קיין מוז)</small>',
+  's3.h': 'די הודעה וואָס וועט געשיקט ווערן', 's3.p': 'וואַטסאַפּ עפֿנט זיך מיט דער הודעה (אויף עבֿרית, פֿאַר ענבל). מע דאַרף נאָר שיקן.', 'edit': 'ענדערן', 'wa.send': 'שיקן אויף וואַטסאַפּ',
+  'alt.q': 'בעסער רעדן?', 'inbal': 'ענבל',
+  'ticket.h': 'און דאָס איז דײַן בילעט', 'ticket.note': 'אַ בילעט אויף אָנדענק. דאָס אײַנשרײַבן ווערט געענדיקט מיט ענבל אין וואַטסאַפּ.', 'ticket.dl': 'אַראָפּלאָדן דעם בילעט',
+  'tk.title': 'אַרײַנגאַנג־בילעט', 'tk.when': 'ווען', 'tk.admit': 'איין פּערזאָן', 'days.one': '{d}', 'days.both': 'דינסטיק און מיטוואָך',
+  'cal.h': 'כּדי נישט צו פֿאַרגעסן', 'cal.ics': 'צולייגן צום קאַלענדאַר', 'cal.title': 'בוטיק פּילאַטעס מיט ענבל',
+  'w.sun': '{t}° און זון. פּונקט גוט פֿאַר פּילאַטעס.', 'w.cloud': '{t}° און וואָלקנס. אינעווייניק איז שטענדיק אָנגענעם.', 'w.rain': '{t}° און רעגן. בײַ אונדז איז טרוקן און אָנגענעם.', 'w.other': '{t}°. פּילאַטעס פּאַסט צו יעדן וועטער.',
+  'kit.toggle': 'פֿאַר ענבל: מאַרקעטינג־קיט', 'kit.story': 'סטאָרי פֿאַר וואַטסאַפּ (1080×1920)', 'kit.post': 'קוואַדראַט־פּאָסט (1080×1080)', 'kit.print': 'דרוקן אַ פֿלײַער (A4)', 'kit.hint': 'אַ לאַנגער דריק אויפֿן בילד כּדי עס אָפּצוהיטן',
+  'k.small': 'קליינע גרופּעס, ביז {n} פֿרויען', 'k.vibe': 'פּערזענלעכע אויפֿמערקזאַמקייט · אָנגענעמע אַטמאָספֿער', 'k.new': 'אַ נײַע גרופּע', 'k.cta': 'פּרטים און אײַנשרײַבן · ענבל',
+  'foot.tag': 'בוטיק פּילאַטעס · שמאי 15, אלעד', 'foot.credit': 'געמאַכט פֿון סטיוו 🤖, שגיבס געהילף', 'vh.toggle': 'ווערסיע־געשיכטע',
+  't.paint': 'שגיבס ווערסיע איז אָנגעצונדן. בעסער אויסלעשן.',
+  'a.title': 'דערגרייכונגען', 'a.end': 'געבלעטערט ביזן סוף 🏅', 'a.bal': '10 סעקונדעס גלײַכגעוויכט 🏆', 'a.paint': 'אָנגעצונדן שגיבס ווערסיע 😬', 'a.vh': 'געפֿונען די ווערסיע־געשיכטע 🕵️', 'a.breath': 'אַ פֿולע אָטעם־רונדע 🌬️', 'a.lang': 'פּאָליגלאָט 🌍', 'a.storm': 'בליען־שטורעם 🌸', 'a.ticket': 'אַ בילעט אין האַנט 🎟️', 'a.amb': 'אַטמאָספֿער אָנגעצונדן 🎧',
+  'amb.label': 'אַטמאָספֿער',
+  'm.small': 'קליינע גרופּעס', 'm.att': 'פּערזענלעכע אויפֿמערקזאַמקייט', 'm.vibe': 'אָנגענעמע אַטמאָספֿער', 'm.upto': 'ביז {n} פֿרויען', 'm.brand': 'בוטיק פּילאַטעס', 'm.when': 'דינסטיק און מיטוואָך 10:00'
+},
+fr: {
+  'intro.a': 'Steve 🤖 Pictures', 'intro.b': 'présente', 'skip': 'Passer',
+  'nav.cta': "S'inscrire", 'hero.eyebrow': 'INBAL · ELAD', 'hero.h1a': 'Pilates', 'hero.h1b': 'boutique',
+  'hero.sub': "Petits groupes, jusqu'à {n} participantes.<br>Suivi personnel, ambiance agréable.",
+  'hero.pill': 'Nouveau groupe : mardi et mercredi à 10h00', 'hero.cta1': 'Réserver mon tapis', 'hero.cta2': "C'est où ?", 'hero.hint': 'Vous pouvez faire tourner le ballon',
+  'paint.label': 'Version Sagiv', 'paint.off': 'Désactiver la version Sagiv',
+  'count.kicker': 'Prochain cours', 'count.h2': 'On commence dans', 'cd.d': 'jours', 'cd.h': 'heures', 'cd.m': 'minutes', 'cd.s': 'secondes', 'count.note': "Mardi et mercredi à 10h00 · heure d'Israël",
+  'stats.kicker': 'Rapport annuel', 'stats.h2': 'Les chiffres parlent', 'stats.lead': 'Chiffres vérifiés. Tous vrais.',
+  's1': 'tapis', 's2': 'jours par semaine', 's3': 'Inbal', 's4': 'le numéro de la rue', 's5': 'bienfaits', 's6': 'du matin', 's7': 'compromis',
+  'mats.kicker': 'Un vrai petit groupe', 'mats.h2': 'Seulement <em>{n}</em> tapis.', 'mats.lead': "Jusqu'à {n} participantes par groupe. Un suivi personnel pour chacune, une ambiance agréable pour toutes.",
+  'mats.note': "Ceci n'est pas un compteur de places libres. Ce qui est libre en ce moment ? <a href=\"#book\">Inbal vous le dira</a>.",
+  'ben.kicker': 'Ce que vous y gagnez', 'ben.h2': 'Cinq bonnes raisons', 'ben.lead': 'Touchez une carte pour la retourner.', 'ben.more': 'Plus ↺',
+  'b1.t': 'Renforcement du plancher pelvien', 'b1.b': 'Un travail doux et précis, en petit groupe, dans une ambiance agréable.',
+  'b2.t': 'Meilleure posture et équilibre', 'b2.b': 'Envie de tester votre équilibre ? Il y a un petit jeu ici.', 'b2.a': 'Jouer',
+  'b3.t': 'Silhouette et tonification', 'b3.b': "À votre rythme, avec le suivi personnel d'Inbal.",
+  'b4.t': 'Moins de douleurs au dos et à la nuque', 'b4.b': 'Dans un groupe de {n} au plus, Inbal voit chacune.',
+  'b5.t': "Prévention du stress et de l'anxiété", 'b5.b': 'Un moment de calme pour vous. On peut commencer par respirer, ici même.', 'b5.a': "Vers l'exercice de respiration",
+  'game.kicker': 'Un petit jeu', 'game.h2': 'Équilibre', 'game.lead': 'Inclinez le téléphone et gardez le ballon dans le cercle. Combien de secondes tiendrez-vous ?',
+  'game.leadMouse': "Déplacez la souris sur le tapis pour l'incliner et gardez le ballon dans le cercle. Combien de secondes tiendrez-vous ?",
+  'game.msg0': 'Posture et équilibre commencent ici, en miniature. Le reste se travaille chez Inbal.', 'game.start': "C'est parti", 'game.now': 'Maintenant', 'game.best': 'Votre record',
+  'game.again': 'Encore un tour', 'game.holding': 'On tient...', 'game.hintTilt': 'Inclinez doucement. Le ballon adore rouler.', 'game.hintTouch': "Glissez un doigt sur le tapis pour l'incliner.", 'game.hintMouse': 'La souris incline le tapis. Doucement.',
+  'game.result': '{s} secondes dans le cercle', 'game.record': ', nouveau record 🌸 ', 'game.l1': "C'est très bien. Les cours sont là pour ça.", 'game.l2': 'Pas mal du tout.', 'game.l3': 'Bravo, un vrai équilibre.', 'game.l4': 'Inbal, nous avons un talent ici.',
+  'breath.kicker': 'Une minute pour vous', 'breath.h2': 'On respire', 'breath.lead': "Respiration carrée : quatre secondes d'inspiration, quatre de pause, quatre d'expiration, quatre de pause.", 'breath.ready': 'Prête ?', 'breath.btn': 'Commencer',
+  'breath.stop': 'Arrêter', 'breath.in': 'Inspirez', 'breath.hold': 'Retenez', 'breath.out': 'Expirez', 'breath.round': 'Cycle {n}', 'breath.done': 'Bravo', 'breath.total': 'Cycles complets : {n}',
+  'hist.kicker': 'Un court documentaire', 'hist.h2': 'Brève histoire du Pilates', 'hist.lead': "Faites défiler. C'est court, et ça finit tout près de chez vous.",
+  'h1.t': 'Naissance de Joseph Pilates à Mönchengladbach, en Allemagne.', 'h2.t': 'La Première Guerre mondiale. Interné en Grande-Bretagne, il met au point sa méthode.', 'h3.y': 'Années 1920', 'h3.t': 'Il ouvre un studio à New York, avec Clara.',
+  'h4.t': 'Il appelle sa méthode « Contrology ».', 'h5.t': "Joseph Pilates s'éteint. La méthode continue.", 'h6.t': '15 rue Shamai, Elad · Inbal', 'h6.s': 'Un nouveau groupe. Mardi et mercredi à 10h00.',
+  'loc.kicker': 'Où', 'loc.h2': 'On se retrouve ici', 'loc.addr': '15 rue Shamai, Elad', 'loc.when': 'Mardi et mercredi à 10h00', 'loc.waze': 'Y aller avec Waze',
+  'book.kicker': 'Inscription', 'book.h2': 'Réservez votre tapis', 'book.lead': 'Trois petites étapes, et votre message pour Inbal est prêt dans WhatsApp.',
+  's1.h': 'Quel jour vous convient ?', 's1.p': 'Choisissez un jour ou les deux.', 'day.tue': 'Mardi', 'day.wed': 'Mercredi', 'next': 'Continuer', 'back': 'Retour',
+  's2.h': 'Comment vous appelez-vous ?', 's2.p': "Pour qu'Inbal sache qui lui écrit.", 'f.name': 'Prénom', 'f.note': 'Remarque <small>(facultatif)</small>',
+  's3.h': 'Voici le message qui sera envoyé', 's3.p': "WhatsApp s'ouvre avec le message prêt (en hébreu, pour Inbal). Il ne reste qu'à envoyer.", 'edit': 'Modifier', 'wa.send': 'Envoyer sur WhatsApp',
+  'alt.q': 'Vous préférez parler ?', 'inbal': 'Inbal',
+  'ticket.h': 'Et voici votre billet', 'ticket.note': "Un billet souvenir. L'inscription se confirme avec Inbal sur WhatsApp.", 'ticket.dl': 'Télécharger le billet',
+  'tk.title': "BILLET D'ENTRÉE", 'tk.when': 'Quand', 'tk.admit': 'UNE ENTRÉE', 'days.one': '{d}', 'days.both': 'Mardi et mercredi',
+  'cal.h': 'Pour ne pas oublier', 'cal.ics': 'Ajouter au calendrier', 'cal.title': 'Pilates boutique avec Inbal',
+  'w.sun': '{t}° et du soleil prévus. Parfait pour le Pilates.', 'w.cloud': "{t}° et des nuages prévus. À l'intérieur, c'est toujours agréable.", 'w.rain': "{t}° et de la pluie prévus. Chez nous, c'est sec et agréable.", 'w.other': '{t}° prévus. Le Pilates va avec tous les temps.',
+  'kit.toggle': 'Pour Inbal : kit marketing', 'kit.story': 'Story WhatsApp (1080×1920)', 'kit.post': 'Post carré (1080×1080)', 'kit.print': 'Imprimer le flyer (A4)', 'kit.hint': "Appui long sur l'image pour l'enregistrer",
+  'k.small': "Petits groupes, {n} participantes au plus", 'k.vibe': 'Suivi personnel · Ambiance agréable', 'k.new': 'Nouveau groupe', 'k.cta': 'Infos et inscription · Inbal',
+  'foot.tag': 'Pilates boutique · 15 rue Shamai, Elad', 'foot.credit': "Conçu et réalisé par Steve 🤖, l'assistant de Sagiv", 'vh.toggle': 'Historique des versions',
+  't.paint': 'Version Sagiv activée. Il est conseillé de la désactiver.',
+  'a.title': 'Succès', 'a.end': 'Vous avez tout fait défiler 🏅', 'a.bal': "10 secondes d'équilibre 🏆", 'a.paint': 'Version Sagiv activée 😬', 'a.vh': 'Historique des versions découvert 🕵️', 'a.breath': 'Un cycle de respiration complet 🌬️', 'a.lang': 'Polyglotte 🌍', 'a.storm': 'Tempête de pétales 🌸', 'a.ticket': 'Billet en main 🎟️', 'a.amb': 'Ambiance activée 🎧',
+  'amb.label': 'Ambiance',
+  'm.small': 'Petits groupes', 'm.att': 'Suivi personnel', 'm.vibe': 'Ambiance agréable', 'm.upto': '{n} participantes au plus', 'm.brand': 'Pilates boutique', 'm.when': 'Mardi et mercredi à 10h00'
+},
+ru: {
+  'intro.a': 'Стив 🤖 Пикчерз', 'intro.b': 'представляет', 'skip': 'Пропустить',
+  'nav.cta': 'Записаться', 'hero.eyebrow': 'ИНБАЛЬ · ЭЛЬАД', 'hero.h1a': 'Бутик', 'hero.h1b': 'пилатес',
+  'hero.sub': 'Небольшие группы, до {n} участниц.<br>Личное внимание и приятная атмосфера.',
+  'hero.pill': 'Новая группа: вторник и среда, 10:00', 'hero.cta1': 'Занять коврик', 'hero.cta2': 'Где это?', 'hero.hint': 'Мяч можно крутить',
+  'paint.label': 'Версия Сагива', 'paint.off': 'Выключить версию Сагива',
+  'count.kicker': 'Ближайшее занятие', 'count.h2': 'Начинаем через', 'cd.d': 'дней', 'cd.h': 'часов', 'cd.m': 'минут', 'cd.s': 'секунд', 'count.note': 'Вторник и среда, 10:00 · по израильскому времени',
+  'stats.kicker': 'Годовой отчёт', 'stats.h2': 'Цифры говорят сами', 'stats.lead': 'Проверенные данные. Всё правда.',
+  's1': 'коврика', 's2': 'дня в неделю', 's3': 'Инбаль', 's4': 'номер дома', 's5': 'преимуществ', 's6': 'утра', 's7': 'компромиссов',
+  'mats.kicker': 'По-настоящему маленькая группа', 'mats.h2': 'Всего <em>{n}</em> коврика.', 'mats.lead': 'До {n} участниц в группе. Личное внимание каждой и приятная атмосфера для всех.',
+  'mats.note': 'Это не счётчик свободных мест. Что свободно сейчас? <a href="#book">Инбаль подскажет</a>.',
+  'ben.kicker': 'Что это даёт', 'ben.h2': 'Пять хороших причин', 'ben.lead': 'Нажмите на карточку, чтобы перевернуть её.', 'ben.more': 'Ещё ↺',
+  'b1.t': 'Укрепление тазового дна', 'b1.b': 'Мягкая и точная практика в маленькой группе, в приятной атмосфере.',
+  'b2.t': 'Осанка и равновесие', 'b2.b': 'Хотите проверить равновесие? Здесь есть маленькая игра.', 'b2.a': 'Играть',
+  'b3.t': 'Тонус и рельеф', 'b3.b': 'В вашем темпе, с личным вниманием Инбаль.',
+  'b4.t': 'Меньше болей в спине и шее', 'b4.b': 'В группе до {n} участниц Инбаль видит каждую.',
+  'b5.t': 'Профилактика стресса и тревоги', 'b5.b': 'Минута тишины для себя. Можно начать с дыхания прямо здесь.', 'b5.a': 'К дыхательному упражнению',
+  'game.kicker': 'Маленькая игра', 'game.h2': 'Равновесие', 'game.lead': 'Наклоняйте телефон и удерживайте мяч в круге. Сколько секунд продержитесь?',
+  'game.leadMouse': 'Двигайте мышью над ковриком, чтобы наклонять его, и удерживайте мяч в круге. Сколько секунд продержитесь?',
+  'game.msg0': 'Осанка и равновесие начинаются здесь, в миниатюре. Остальное — на занятиях у Инбаль.', 'game.start': 'Поехали', 'game.now': 'Сейчас', 'game.best': 'Ваш рекорд',
+  'game.again': 'Ещё раунд', 'game.holding': 'Держимся...', 'game.hintTilt': 'Наклоняйте плавно. Мяч любит кататься.', 'game.hintTouch': 'Ведите пальцем по коврику, чтобы наклонять его.', 'game.hintMouse': 'Мышь наклоняет коврик. Плавно.',
+  'game.result': '{s} сек. в круге', 'game.record': ', новый рекорд 🌸 ', 'game.l1': 'Всё в порядке. Для этого и есть занятия.', 'game.l2': 'Совсем неплохо.', 'game.l3': 'Ого, настоящее равновесие.', 'game.l4': 'Инбаль, у нас тут талант.',
+  'breath.kicker': 'Минута для себя', 'breath.h2': 'Просто подышим', 'breath.lead': 'Дыхание «по квадрату»: четыре секунды вдох, четыре пауза, четыре выдох, четыре пауза.', 'breath.ready': 'Готовы?', 'breath.btn': 'Начать',
+  'breath.stop': 'Стоп', 'breath.in': 'Вдох', 'breath.hold': 'Пауза', 'breath.out': 'Выдох', 'breath.round': 'Круг {n}', 'breath.done': 'Отлично', 'breath.total': 'Полных кругов: {n}',
+  'hist.kicker': 'Короткий документальный фильм', 'hist.h2': 'Краткая история пилатеса', 'hist.lead': 'Листайте. Это коротко и заканчивается совсем рядом с домом.',
+  'h1.t': 'Йозеф Пилатес родился в Мёнхенгладбахе, Германия.', 'h2.t': 'Первая мировая война. Интернированный в Британии, он разрабатывает свой метод.', 'h3.y': '1920-е', 'h3.t': 'Он открывает студию в Нью-Йорке вместе с Кларой.',
+  'h4.t': 'Свой метод он называет «Контрология».', 'h5.t': 'Йозеф Пилатес уходит из жизни. Метод живёт дальше.', 'h6.t': 'Шамай 15, Эльад · Инбаль', 'h6.s': 'Новая группа. Вторник и среда, 10:00.',
+  'loc.kicker': 'Где', 'loc.h2': 'Встречаемся здесь', 'loc.addr': 'ул. Шамай 15, Эльад', 'loc.when': 'Вторник и среда, 10:00', 'loc.waze': 'Маршрут в Waze',
+  'book.kicker': 'Запись', 'book.h2': 'Займите свой коврик', 'book.lead': 'Три коротких шага — и сообщение для Инбаль готово в WhatsApp.',
+  's1.h': 'Какой день вам подходит?', 's1.p': 'Можно выбрать один день или оба.', 'day.tue': 'Вторник', 'day.wed': 'Среда', 'next': 'Далее', 'back': 'Назад',
+  's2.h': 'Как вас зовут?', 's2.p': 'Чтобы Инбаль знала, кто пишет.', 'f.name': 'Имя', 'f.note': 'Комментарий <small>(необязательно)</small>',
+  's3.h': 'Вот сообщение, которое будет отправлено', 's3.p': 'WhatsApp откроется с готовым сообщением (на иврите, для Инбаль). Останется нажать «отправить».', 'edit': 'Изменить', 'wa.send': 'Отправить в WhatsApp',
+  'alt.q': 'Удобнее позвонить?', 'inbal': 'Инбаль',
+  'ticket.h': 'А вот и ваш билет', 'ticket.note': 'Билет на память. Сама запись подтверждается у Инбаль в WhatsApp.', 'ticket.dl': 'Скачать билет',
+  'tk.title': 'ВХОДНОЙ БИЛЕТ', 'tk.when': 'Когда', 'tk.admit': 'НА ОДНУ ПЕРСОНУ', 'days.one': '{d}', 'days.both': 'Вторник и среда',
+  'cal.h': 'Чтобы не забыть', 'cal.ics': 'Добавить в календарь', 'cal.title': 'Бутик-пилатес с Инбаль',
+  'w.sun': 'Ожидается {t}° и солнце. Идеально для пилатеса.', 'w.cloud': 'Ожидается {t}° и облачно. Внутри всегда приятно.', 'w.rain': 'Ожидается {t}° и дождь. У нас сухо и приятно.', 'w.other': 'Ожидается {t}°. Пилатес хорош в любую погоду.',
+  'kit.toggle': 'Для Инбаль: маркетинг-набор', 'kit.story': 'Сторис для WhatsApp (1080×1920)', 'kit.post': 'Квадратный пост (1080×1080)', 'kit.print': 'Печать флаера (A4)', 'kit.hint': 'Долгое нажатие на картинку, чтобы сохранить',
+  'k.small': 'Небольшие группы, до {n} участниц', 'k.vibe': 'Личное внимание · Приятная атмосфера', 'k.new': 'Новая группа', 'k.cta': 'Подробности и запись · Инбаль',
+  'foot.tag': 'Бутик-пилатес · Шамай 15, Эльад', 'foot.credit': 'Дизайн и разработка: Стив 🤖, помощник Сагива', 'vh.toggle': 'История версий',
+  't.paint': 'Версия Сагива включена. Рекомендуется выключить.',
+  'a.title': 'Достижения', 'a.end': 'Долистали до конца 🏅', 'a.bal': '10 секунд равновесия 🏆', 'a.paint': 'Вы включили версию Сагива 😬', 'a.vh': 'Вы нашли историю версий 🕵️', 'a.breath': 'Полный круг дыхания 🌬️', 'a.lang': 'Полиглот 🌍', 'a.storm': 'Буря лепестков 🌸', 'a.ticket': 'Билет на руках 🎟️', 'a.amb': 'Атмосфера включена 🎧',
+  'amb.label': 'Атмосфера',
+  'm.small': 'Небольшие группы', 'm.att': 'Личное внимание', 'm.vibe': 'Приятная атмосфера', 'm.upto': 'До {n} участниц', 'm.brand': 'Бутик-пилатес', 'm.when': 'Вт и ср, 10:00'
+}
+};
+function T(k, vars){
+  var s = D[LANG] && D[LANG][k];
+  if (s == null) s = D.he[k];
+  if (s == null) return k;
+  s = s.split('{n}').join(MAX_SPOTS);
+  if (vars) for (var v in vars) s = s.split('{' + v + '}').join(vars[v]);
+  return s;
+}
+var YI_DAYS = ['זונטיק', 'מאָנטיק', 'דינסטיק', 'מיטוואָך', 'דאָנערשטיק', 'פֿרײַטיק', 'שבת'];
+var YI_MONTHS = ['יאַנואַר', 'פֿעברואַר', 'מאַרץ', 'אַפּריל', 'מיי', 'יוני', 'יולי', 'אויגוסט', 'סעפּטעמבער', 'אָקטאָבער', 'נאָוועמבער', 'דעצעמבער'];
+function fmtDate(date){
+  if (LANG === 'yi') {
+    var p = tzParts(date), dow = new Date(Date.UTC(p.year, p.month - 1, p.day)).getUTCDay();
+    return YI_DAYS[dow] + ', ' + p.day + ' ' + YI_MONTHS[p.month - 1];
+  }
+  return new Intl.DateTimeFormat(LANGS[LANG].loc, { timeZone: TZ, weekday: 'long', day: 'numeric', month: 'long' }).format(date);
+}
+function daysText(days){
+  if (!days || !days.length || days.length > 1) return T('days.both');
+  return T('days.one', { d: T(days[0] === 'רביעי' ? 'day.wed' : 'day.tue') });
+}
+function applyLang(){
+  var h = document.documentElement;
+  h.lang = LANG; h.dir = LANGS[LANG].dir;
+  $$('[data-i18n]').forEach(function(el){ el.innerHTML = T(el.getAttribute('data-i18n')); });
+  $$('[data-spots]').forEach(function(el){ el.textContent = MAX_SPOTS; });
+  var a = $('#ambBtn'); if (a) { a.title = T('amb.label'); a.setAttribute('aria-label', T('amb.label')); }
+  var t = $('#achBtn'); if (t) t.setAttribute('aria-label', T('a.title'));
+}
+function setLang(l, silent){
+  if (!LANGS[l]) l = 'he';
+  LANG = l; applyLang(); store.set('im_lang', l);
+  var sel = $('#lang'); if (sel) sel.value = l;
+  if (!silent) {
+    document.dispatchEvent(new CustomEvent('im:lang'));
+    try { window.dispatchEvent(new Event('resize')); } catch (e) {}
+  }
+}
+safe('i18n', function(){
+  $$('[data-i18n]').forEach(function(el){ var k = el.getAttribute('data-i18n'); if (D.he[k] == null) D.he[k] = el.innerHTML; });
+  var saved = store.get('im_lang');
+  setLang(saved && LANGS[saved] ? saved : 'he', true);
+});
+
+/* shared state for the v4 layer */
+var HERO_BALL = { cx: window.innerWidth / 2, cy: window.innerHeight * .78, r: Math.min(window.innerWidth, window.innerHeight) * .17 };
+var LB = null, PAINT = false, achGot = null;
+
+/* ================= intro (runs from the first frame; never depends on the CDN) ================= */
+var INTRO = (function(){
+  var h = document.documentElement, el = $('#intro'), on = h.classList.contains('intro-on'), done = !on, cbs = [], t0 = performance.now();
+  function end(){
+    if (done) return; done = true;
+    el.classList.add('out'); h.classList.remove('intro-lock');
+    setTimeout(function(){ h.classList.remove('intro-on'); }, 950);
+    cbs.forEach(function(f){ try { f(); } catch (e) {} });
+  }
+  if (on) {
+    h.classList.add('intro-lock');
+    try { window.sessionStorage.setItem('im_intro', '1'); } catch (e) {}
+    $('#skip').addEventListener('click', end);
+    setTimeout(end, 4100);
+  }
+  return { on: on, end: end, done: function(){ return done; }, onEnd: function(f){ if (done) f(); else cbs.push(f); }, t: function(){ return (performance.now() - t0) / 1000; } };
+})();
+
 
 /* shared tilt state (phone orientation), used by the hero and the game */
 var TILT = { x: 0, y: 0, live: false, beta0: null, raw: {b: 0, g: 0} };
@@ -644,12 +1224,12 @@ function zonedToUtc(y, m, d, h, mi){
   if (off2 !== off) t = guess - off2;
   return new Date(t);
 }
-function nextClass(now){
+function nextClass(now, days){
   now = now || new Date();
   var p = tzParts(now);
   for (var i = 0; i < 8; i++) {
     var day = new Date(Date.UTC(p.year, p.month - 1, p.day + i));
-    if (CLASS_DAYS.indexOf(day.getUTCDay()) === -1) continue;
+    if ((days || CLASS_DAYS).indexOf(day.getUTCDay()) === -1) continue;
     var t = zonedToUtc(day.getUTCFullYear(), day.getUTCMonth() + 1, day.getUTCDate(), CLASS_HOUR, CLASS_MIN);
     if (t.getTime() > now.getTime()) return t;
   }
@@ -659,13 +1239,12 @@ safe('countdown', function(){
   var elD = $('#cdD'), elH = $('#cdH'), elM = $('#cdM'), elS = $('#cdS'), when = $('#cdWhen');
   var target = null;
   var pad = function(n){ return (n < 10 ? '0' : '') + n; };
-  var fmt = new Intl.DateTimeFormat('he-IL', { timeZone: TZ, weekday: 'long', day: 'numeric', month: 'long' });
   function tick(){
     var now = new Date();
     if (!target || target.getTime() <= now.getTime()) {
       target = nextClass(now);
       if (!target) return;
-      when.textContent = fmt.format(target) + ' · 10:00';
+      when.textContent = fmtDate(target) + ' · 10:00';
     }
     var s = Math.max(0, Math.floor((target.getTime() - now.getTime()) / 1000));
     elD.textContent = Math.floor(s / 86400);
@@ -674,13 +1253,17 @@ safe('countdown', function(){
     elS.textContent = pad(s % 60);
   }
   tick(); setInterval(tick, 1000);
+  document.addEventListener('im:lang', function(){ target = null; tick(); });
 });
 
 /* ================= marquee ================= */
 safe('marquee', function(){
-  var items = ['יחס אישי', 'אווירה נעימה', 'קבוצות קטנות', 'עד ' + MAX_SPOTS + ' משתתפות', 'פילאטיס בוטיק', 'שמאי 15, אלעד', 'שלישי ורביעי ב-10:00'];
+  var build = function(){
+  var items = [T('m.att'), T('m.vibe'), T('m.small'), T('m.upto'), T('m.brand'), T('loc.addr'), T('m.when')];
   var html = items.map(function(t){ return '<span>' + t + '<svg viewBox="-20 -20 40 40"><use href="#blossom" x="-20" y="-20" width="40" height="40"/></svg></span>'; }).join('');
   $('#marq').innerHTML = html + html + html + html;
+  };
+  build(); document.addEventListener('im:lang', build);
 });
 
 /* ================= mats ================= */
@@ -737,6 +1320,7 @@ safe('booking', function(){
     steps.forEach(function(s){ s.classList.toggle('cur', +s.getAttribute('data-step') === n); });
     bars.forEach(function(b, i){ b.classList.toggle('done', i < n); });
     sync();
+    if (n === 3) document.dispatchEvent(new CustomEvent('im:ticket', { detail: data() }));
     if (n === 2) { try { name.focus({ preventScroll: true }); } catch (e) {} }
   }
   form.addEventListener('input', sync);
@@ -775,16 +1359,17 @@ safe('location', function(){
 /* ================= breathing ================= */
 safe('breathing', function(){
   var circle = $('#bCircle'), cue = $('#bCue'), num = $('#bNum'), meta = $('#bMeta'), btn = $('#bBtn');
-  var PH = [['שאיפה', 1, false], ['החזקה', 1, true], ['נשיפה', .55, false], ['החזקה', .55, true]];
+  var PH = [['breath.in', 1, false], ['breath.hold', 1, true], ['breath.out', .55, false], ['breath.hold', .55, true]];
   var timer = null, sec = 0, ph = 0, rounds = 0;
   function apply(){
     var p = PH[ph];
-    cue.textContent = p[0];
+    cue.textContent = T(p[0]);
+    if (navigator.vibrate) { try { navigator.vibrate(p[2] ? 40 : [70, 50, 70]); } catch (e) {} }
     circle.classList.toggle('hold', p[2]);
     circle.style.transform = 'scale(' + p[1] + ')';
   }
   function tick(){
-    if (sec === 0) { apply(); if (ph === 0) { rounds++; meta.textContent = 'סבב ' + rounds; } }
+    if (sec === 0) { apply(); if (ph === 0) { rounds++; meta.textContent = T('breath.round', { n: rounds }); if (rounds === 2) ACH('breath'); } }
     num.textContent = 4 - sec;
     sec++;
     if (sec === 4) { sec = 0; ph = (ph + 1) % 4; }
@@ -792,17 +1377,18 @@ safe('breathing', function(){
   function stop(){
     clearInterval(timer); timer = null; sec = 0; ph = 0;
     circle.classList.add('hold'); circle.style.transform = '';
-    cue.textContent = rounds ? 'יופי' : 'מוכנה?'; num.textContent = '';
-    meta.textContent = rounds > 1 ? 'נשמת ' + (rounds - 1 || 1) + ' סבבים מלאים' : '';
+    cue.textContent = rounds ? T('breath.done') : T('breath.ready'); num.textContent = '';
+    meta.textContent = rounds > 1 ? T('breath.total', { n: rounds - 1 }) : '';
     rounds = 0;
-    btn.textContent = 'התחילי לנשום'; btn.setAttribute('aria-pressed', 'false');
+    btn.textContent = T('breath.btn'); btn.setAttribute('aria-pressed', 'false');
   }
   btn.addEventListener('click', function(){
     if (timer) return stop();
-    btn.textContent = 'עצירה'; btn.setAttribute('aria-pressed', 'true');
+    btn.textContent = T('breath.stop'); btn.setAttribute('aria-pressed', 'true');
     tick(); timer = setInterval(tick, 1000);
   });
   document.addEventListener('visibilitychange', function(){ if (document.hidden && timer) stop(); });
+  document.addEventListener('im:lang', function(){ if (timer) { rounds = 0; stop(); } });
 });
 
 /* ================= balance game ================= */
@@ -812,7 +1398,9 @@ safe('game', function(){
   var best = parseFloat(store.get('im_balance_best')) || 0;
   bestEl.textContent = best.toFixed(1);
   var touch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-  if (!touch) lead.textContent = 'הזיזי את העכבר מעל המזרן כדי להטות אותו, והשאירי את הכדור בתוך העיגול. כמה שניות תחזיקי?';
+  var setLead = function(){ lead.textContent = T(touch ? 'game.lead' : 'game.leadMouse'); };
+  setLead();
+  document.addEventListener('im:lang', function(){ setLead(); if (S.run) end(); });
   var ZONE = 0.5, LIMIT = 1.02;
   var S = { run: false, x: 0, y: 0, vx: 0, vy: 0, t: 0, score: 0, last: 0, px: 0, py: 0, pointer: false, seed: 0 };
   function draw(tx, ty){
@@ -836,7 +1424,7 @@ safe('game', function(){
     S.x += S.vx * dt; S.y += S.vy * dt;
     var inside = Math.sqrt(S.x * S.x + S.y * S.y) < ZONE;
     zone.classList.toggle('in', inside);
-    if (inside) { S.score += dt; nowEl.textContent = S.score.toFixed(1); }
+    if (inside) { S.score += dt; nowEl.textContent = S.score.toFixed(1); if (S.score >= 10) ACH('bal'); }
     draw(tx, ty);
     if (Math.abs(S.x) > LIMIT || Math.abs(S.y) > LIMIT) return end();
     requestAnimationFrame(frame);
@@ -845,17 +1433,17 @@ safe('game', function(){
     S.run = false; zone.classList.remove('in');
     var s = S.score, rec = s > best + .05;
     if (rec) { best = s; store.set('im_balance_best', s.toFixed(1)); bestEl.textContent = s.toFixed(1); }
-    var line = s < 5 ? 'זה בסדר גמור, בשביל זה יש שיעורים.' : s < 15 ? 'יציבה לא רעה בכלל.' : s < 40 ? 'וואו, שיווי משקל של ממש.' : 'ענבל, יש לנו כאן כישרון.';
-    msg.textContent = s.toFixed(1) + ' שניות בתוך העיגול' + (rec ? ', שיא חדש 🌸 ' : '. ') + line;
-    btn.textContent = 'עוד סיבוב'; btn.disabled = false;
+    var line = T(s < 5 ? 'game.l1' : s < 15 ? 'game.l2' : s < 40 ? 'game.l3' : 'game.l4');
+    msg.textContent = T('game.result', { s: s.toFixed(1) }) + (rec ? T('game.record') : '. ') + line;
+    btn.textContent = T('game.again'); btn.disabled = false;
     ball.style.transition = 'transform .5s, opacity .4s'; ball.style.opacity = '.0';
     setTimeout(function(){ S.x = S.y = 0; ball.style.opacity = '1'; draw(0, 0); setTimeout(function(){ ball.style.transition = ''; }, 500); }, 450);
   }
   function begin(){
     S.x = S.y = S.vx = S.vy = S.t = S.score = 0; S.px = S.py = 0; S.seed = Math.random() * 10; S.run = true; S.last = performance.now();
     TILT.beta0 = TILT.live ? TILT.raw.b : null;
-    nowEl.textContent = '0.0'; btn.disabled = true; btn.textContent = 'מחזיקות...';
-    msg.textContent = TILT.live ? 'הטי בעדינות. הכדור אוהב להתגלגל.' : (touch ? 'גררי אצבע על המזרן כדי להטות אותו.' : 'העכבר מטה את המזרן. בעדינות.');
+    nowEl.textContent = '0.0'; btn.disabled = true; btn.textContent = T('game.holding');
+    msg.textContent = T(TILT.live ? 'game.hintTilt' : (touch ? 'game.hintTouch' : 'game.hintMouse'));
     requestAnimationFrame(frame);
   }
   btn.addEventListener('click', function(){
@@ -863,6 +1451,7 @@ safe('game', function(){
     if (DO && typeof DO.requestPermission === 'function') {
       var p;
       try { p = DO.requestPermission(); } catch (e) { p = null; }
+      try { if (window.DeviceMotionEvent && typeof window.DeviceMotionEvent.requestPermission === 'function') window.DeviceMotionEvent.requestPermission().then(function(){}, function(){}); } catch (e) {}
       if (p && p.then) { p.then(function(){ setTimeout(begin, 120); }, function(){ begin(); }); return; }
     }
     begin();
@@ -884,14 +1473,14 @@ safe('game', function(){
 safe('history', function(){
   var t = $('#vhT'), box = $('#vh'), lb = $('#lb'), img = $('#lbImg'), last = null;
   t.addEventListener('click', function(){
-    var open = box.hidden; box.hidden = !open; t.setAttribute('aria-expanded', open ? 'true' : 'false');
+    var open = box.hidden; box.hidden = !open; t.setAttribute('aria-expanded', open ? 'true' : 'false'); if (open) ACH('vh');
     if (open) box.scrollIntoView({ block: 'nearest', behavior: REDUCED ? 'auto' : 'smooth' });
   });
+  LB = function(src, alt, hint){ img.src = src; img.alt = alt || ''; $('#lbHint').textContent = hint || ''; lb.hidden = false; document.body.style.overflow = 'hidden'; $('#lbX').focus(); };
   function close(){ lb.hidden = true; img.removeAttribute('src'); document.body.style.overflow = ''; if (last) last.focus(); }
   $$('.th', box).forEach(function(b){
     b.addEventListener('click', function(){
-      last = b; img.src = b.getAttribute('data-full'); img.alt = b.querySelector('img').alt;
-      lb.hidden = false; document.body.style.overflow = 'hidden'; $('#lbX').focus();
+      last = b; LB(b.getAttribute('data-full'), b.querySelector('img').alt, '');
     });
   });
   lb.addEventListener('click', function(e){ if (e.target !== img) close(); });
@@ -905,6 +1494,7 @@ safe('chrome', function(){
     ticking = false;
     var y = window.pageYOffset, max = document.documentElement.scrollHeight - window.innerHeight;
     top.classList.toggle('solid', y > 30);
+    if (max > 200 && y > max - 40) ACH('end');
     bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')';
     var r = book.getBoundingClientRect();
     fab.classList.toggle('show', y > window.innerHeight * .8 && y < max - 260 && (r.top > window.innerHeight || r.bottom < 0));
@@ -1030,8 +1620,9 @@ function initGL(){
     renderer.setSize(w, h, false);
     cam.aspect = w / h; cam.updateProjectionMatrix();
     var visH = 2 * 8 * Math.tan(35 * Math.PI / 360), visW = visH * cam.aspect;
-    if (w >= 1000) { L.r = Math.min(1.42, visW * .19); L.x = -visW * .24; L.y = -.1; L.side = -1; }
+    if (w >= 1000) { L.r = Math.min(1.42, visW * .19); L.side = document.documentElement.dir === 'ltr' ? 1 : -1; L.x = visW * .24 * L.side; L.y = -.1; }
     else { L.r = Math.min(visW * .33, visH * .15); L.x = 0; L.y = -visH / 2 + L.r + visH * .07; L.side = 1; }
+    HERO_BALL.cx = w / 2 + L.x / visW * w; HERO_BALL.cy = h / 2 - L.y / visH * h; HERO_BALL.r = L.r / visH * h;
     ball.scale.setScalar(L.r);
     ring.scale.setScalar(L.r * 1.05); mini.scale.setScalar(L.r);
     shadow.scale.set(L.r, L.r * .55, 1);
@@ -1063,7 +1654,7 @@ function initGL(){
     cam.position.x = par.x * .12; cam.position.y = -par.y * .08; cam.lookAt(0, 0, 0);
     renderer.render(scene, cam);
   }
-  function loop(ts){ if (!running) return; render(ts); requestAnimationFrame(loop); }
+  function loop(ts){ if (!running) return; if (!PAINT) render(ts); requestAnimationFrame(loop); }
   function check(){
     var want = visible && !document.hidden && !REDUCED;
     if (want && !running) { running = true; last = performance.now(); requestAnimationFrame(loop); }
@@ -1086,7 +1677,7 @@ function initScroll(){
   gsap.registerPlugin(ST);
   ST.config({ ignoreMobileResize: true });
 
-  gsap.from('[data-hero]', { y: 34, autoAlpha: 0, duration: 1.1, ease: 'power3.out', stagger: .11, delay: .15 });
+  INTRO.onEnd(function(){ gsap.from('[data-hero]', { y: 34, autoAlpha: 0, duration: 1.1, ease: 'power3.out', stagger: .11, delay: .15 }); });
   gsap.to('.hero-in', { yPercent: -14, autoAlpha: .0, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom 25%', scrub: true } });
   gsap.to('#gl, .cssball', { y: 90, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
 
@@ -1110,15 +1701,619 @@ function initScroll(){
     gsap.set(els, { y: 36, autoAlpha: 0 });
     $$('[data-par]', sec).forEach(function(b){ gsap.to(b, { y: +b.getAttribute('data-par'), ease: 'none', scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: true } }); });
   });
+  if ($('.tl-prog')) gsap.fromTo('.tl-prog', { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.tl', start: 'top 75%', end: 'bottom 65%', scrub: true } });
+  document.addEventListener('im:lang', function(){ ST.refresh(); });
   window.addEventListener('load', function(){ ST.refresh(); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ ST.refresh(); });
 }
 
 window.__im = { MAX_SPOTS: MAX_SPOTS, nextClass: nextClass, buildWaUrl: buildWaUrl, buildMessage: buildMessage };
 
+
+/* =====================================================================
+   v4: the overkill layer
+   ===================================================================== */
+var TIER = (function(){
+  var mem = navigator.deviceMemory || 4, cores = navigator.hardwareConcurrency || 4;
+  if (REDUCED || mem <= 2 || cores <= 2 || (SMALL && cores <= 4 && mem <= 3)) return 'low';
+  return SMALL ? 'mid' : 'high';
+})();
+var PHONE = '051-5445260';
+var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+/* ---------- toasts + achievements ---------- */
+function toast(text){
+  var box = $('#toasts'); if (!box) return;
+  var t = document.createElement('div'); t.className = 'toast'; t.textContent = text; box.appendChild(t);
+  while (box.children.length > 3) box.removeChild(box.firstChild);
+  setTimeout(function(){ if (t.parentNode) t.parentNode.removeChild(t); }, 4400);
+}
+var ACH_IDS = ['end', 'bal', 'paint', 'vh', 'breath', 'lang', 'storm', 'ticket', 'amb'];
+function achRender(){
+  var n = $('#achN'), list = $('#achList'); if (!n || !achGot) return;
+  n.textContent = achGot.length + '/' + ACH_IDS.length;
+  list.innerHTML = ACH_IDS.map(function(id){ var got = achGot.indexOf(id) !== -1; return '<li class="' + (got ? 'got' : '') + '">' + (got ? T('a.' + id) : '· · ·') + '</li>'; }).join('');
+}
+function ACH(id){
+  if (!achGot || achGot.indexOf(id) !== -1) return;
+  achGot.push(id); store.set('im_ach', JSON.stringify(achGot)); achRender(); toast(T('a.' + id));
+}
+safe('achievements', function(){
+  try { achGot = JSON.parse(store.get('im_ach') || '[]'); } catch (e) { achGot = []; }
+  if (!Array.isArray(achGot)) achGot = [];
+  achGot = achGot.filter(function(x){ return ACH_IDS.indexOf(x) !== -1; });
+  achRender();
+  var btn = $('#achBtn'), box = $('#ach');
+  btn.addEventListener('click', function(e){ e.stopPropagation(); box.hidden = !box.hidden; btn.setAttribute('aria-expanded', box.hidden ? 'false' : 'true'); });
+  document.addEventListener('click', function(e){ if (!box.hidden && !box.contains(e.target)) { box.hidden = true; btn.setAttribute('aria-expanded', 'false'); } });
+  document.addEventListener('im:lang', achRender);
+});
+
+/* ---------- language switcher ---------- */
+safe('lang', function(){
+  var sel = $('#lang'); sel.value = LANG;
+  sel.addEventListener('change', function(){ setLang(sel.value); if (sel.value !== 'he') ACH('lang'); });
+});
+
+/* ---------- petal effects canvas: bursts, storms, cursor trail ---------- */
+var FX = (function(){
+  var cv = $('#fx'), ctx = cv && cv.getContext && cv.getContext('2d');
+  var none = function(){};
+  if (!ctx) return { burst: none, storm: none, trail: none };
+  var P = [], running = false, W = 0, H = 0, last = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var cols = ['#f3c9c9', '#eab4b8', '#f8dedb', '#e09ea6', '#fbe9e5', '#d98a98'];
+  var MAXP = TIER === 'low' ? 140 : (TIER === 'mid' ? 260 : 460);
+  function size(){ W = window.innerWidth; H = window.innerHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  function add(x, y, vx, vy, s, life, g){
+    if (P.length >= MAXP) return;
+    P.push({ x: x, y: y, vx: vx, vy: vy, s: s, r: Math.random() * 6.28, vr: -3 + Math.random() * 6, f: Math.random() * 6.28, vf: 2 + Math.random() * 4, c: cols[(Math.random() * cols.length) | 0], life: life, max: life, g: g });
+    if (!running) { running = true; size(); last = performance.now(); requestAnimationFrame(loop); }
+  }
+  function loop(ts){
+    var dt = Math.min(.05, (ts - last) / 1000 || 0); last = ts;
+    ctx.clearRect(0, 0, W, H);
+    for (var i = P.length - 1; i >= 0; i--) {
+      var p = P[i]; p.life -= dt;
+      if (p.life <= 0 || p.y > H + 40) { P.splice(i, 1); continue; }
+      p.vy += p.g * dt; p.vx *= Math.pow(.35, dt); p.x += (p.vx + Math.sin(p.f) * 20) * dt; p.y += p.vy * dt; p.r += p.vr * dt; p.f += p.vf * dt;
+      var s = p.s;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.scale(1, .35 + .65 * Math.abs(Math.cos(p.f)));
+      ctx.globalAlpha = Math.min(1, p.life / .5) * .92; ctx.fillStyle = PAINT ? ['#f00', '#0c0', '#22f', '#f0f', '#ff0'][i % 5] : p.c;
+      ctx.beginPath(); ctx.moveTo(0, s);
+      ctx.bezierCurveTo(-s * .95, s * .35, -s * .7, -s * .8, -s * .12, -s * .85);
+      ctx.quadraticCurveTo(0, -s * .62, s * .12, -s * .85);
+      ctx.bezierCurveTo(s * .7, -s * .8, s * .95, s * .35, 0, s);
+      ctx.fill(); ctx.restore();
+    }
+    if (P.length) requestAnimationFrame(loop); else { running = false; ctx.clearRect(0, 0, W, H); }
+  }
+  window.addEventListener('resize', function(){ if (running) size(); });
+  return {
+    burst: function(x, y, n){
+      n = TIER === 'low' ? Math.round(n * .5) : n;
+      for (var i = 0; i < n; i++) { var a = Math.random() * 6.283, v = 140 + Math.random() * 520; add(x, y, Math.cos(a) * v, Math.sin(a) * v - 220, 7 + Math.random() * 11, 1.6 + Math.random() * 1.6, 620); }
+    },
+    storm: function(){
+      var n = TIER === 'low' ? 70 : (TIER === 'mid' ? 150 : 260), w = window.innerWidth, k = 0;
+      var iv = setInterval(function(){
+        for (var j = 0; j < 14 && k < n; j++, k++) add(Math.random() * (w + 200) - 100, -20 - Math.random() * 80, -160 + Math.random() * 120, 160 + Math.random() * 240, 8 + Math.random() * 12, 5, 60);
+        if (k >= n) clearInterval(iv);
+      }, 110);
+    },
+    trail: function(x, y){ add(x, y, -40 + Math.random() * 80, 20 + Math.random() * 50, 5 + Math.random() * 6, .9 + Math.random() * .6, 120); }
+  };
+})();
+function storm(){ FX.storm(); ACH('storm'); }
+safe('trail+storm', function(){
+  if (!isTouch && !REDUCED && TIER !== 'low') {
+    var lx = 0, ly = 0;
+    window.addEventListener('pointermove', function(e){
+      if (e.pointerType !== 'mouse') return;
+      var dx = e.clientX - lx, dy = e.clientY - ly;
+      if (dx * dx + dy * dy > 1500) { lx = e.clientX; ly = e.clientY; FX.trail(e.clientX, e.clientY); }
+    }, { passive: true });
+  }
+  var buf = '';
+  document.addEventListener('keydown', function(e){
+    if (!e.key || e.key.length !== 1 || /^(INPUT|TEXTAREA|SELECT)$/.test((e.target && e.target.tagName) || '')) return;
+    buf = (buf + e.key.toLowerCase()).slice(-7);
+    if (buf === 'pilates') { buf = ''; storm(); }
+  });
+  var lastShake = 0;
+  window.addEventListener('devicemotion', function(e){
+    var a = e.acceleration; if (!a || a.x == null) return;
+    var m = Math.abs(a.x) + Math.abs(a.y) + Math.abs(a.z), now = Date.now();
+    if (m > 34 && now - lastShake > 4500) { lastShake = now; storm(); }
+  }, { passive: true });
+});
+
+/* ---------- גרסת שגיב ---------- */
+function setPaint(on){
+  PAINT = !!on;
+  document.documentElement.classList.toggle('paint', PAINT);
+  $('#paintSw').setAttribute('aria-checked', PAINT ? 'true' : 'false');
+  if (PAINT) {
+    if (!$('#paintFont')) { var l = document.createElement('link'); l.id = 'paintFont'; l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=Gveret+Levin&family=Comic+Neue:wght@700&display=swap'; document.head.appendChild(l); }
+    toast(T('t.paint')); ACH('paint');
+  }
+  try { window.dispatchEvent(new Event('resize')); } catch (e) {}
+  if (window.ScrollTrigger) { try { window.ScrollTrigger.refresh(); } catch (e) {} }
+}
+safe('paint', function(){
+  $('#paintSw').addEventListener('click', function(){ setPaint(!PAINT); });
+  $('#paintOff').addEventListener('click', function(){ setPaint(false); });
+});
+
+/* ---------- annual-report counters ---------- */
+safe('stats', function(){
+  var sp = $('#statSpots'); sp.setAttribute('data-to', MAX_SPOTS); sp.textContent = MAX_SPOTS;
+  var els = $$('.stat b[data-to]');
+  if (REDUCED || !('IntersectionObserver' in window)) return;
+  var show = function(el, v){ el.textContent = Math.round(v) + (el.getAttribute('data-suffix') || ''); };
+  els.forEach(function(el){ show(el, +(el.getAttribute('data-from') || 0)); });
+  var io = new IntersectionObserver(function(en){
+    en.forEach(function(x){
+      if (!x.isIntersecting) return; io.unobserve(x.target);
+      var el = x.target, from = +(el.getAttribute('data-from') || 0), to = +el.getAttribute('data-to'), t0 = performance.now(), dur = 1500;
+      (function step(ts){ var k = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - k, 3); show(el, from + (to - from) * e); if (k < 1) requestAnimationFrame(step); })(t0);
+    });
+  }, { threshold: .6 });
+  els.forEach(function(el){ io.observe(el); });
+});
+
+/* ---------- weather for the next class (Open-Meteo, fails silently) ---------- */
+safe('weather', function(){
+  var box = $('#wx'), out = $('#wxT'), WX = null;
+  function render(){
+    if (!WX) return;
+    var c = WX.code, kind = c <= 1 ? 'sun' : c <= 3 ? 'cloud' : ((c >= 51 && c <= 67) || (c >= 80 && c <= 82)) ? 'rain' : 'other';
+    out.textContent = ({ sun: '☀️', cloud: '⛅', rain: '🌧️', other: '🌸' })[kind] + ' ' + T('w.' + kind, { t: WX.temp });
+    box.hidden = false;
+  }
+  function load(){
+    var t = nextClass(); if (!t || !window.fetch) return;
+    if (t.getTime() - Date.now() > 6.5 * 864e5) return;
+    var p = tzParts(t), z = function(n){ return (n < 10 ? '0' : '') + n; };
+    var key = p.year + '-' + z(p.month) + '-' + z(p.day) + 'T' + z(CLASS_HOUR) + ':00';
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=32.05&longitude=34.95&hourly=temperature_2m,weather_code&timezone=Asia%2FJerusalem&forecast_days=8')
+      .then(function(r){ if (!r.ok) throw 0; return r.json(); })
+      .then(function(j){
+        var i = j.hourly.time.indexOf(key); if (i < 0) return;
+        var temp = j.hourly.temperature_2m[i], code = j.hourly.weather_code[i];
+        if (typeof temp !== 'number' || typeof code !== 'number') return;
+        WX = { temp: Math.round(temp), code: code }; render();
+      })['catch'](function(){});
+  }
+  document.addEventListener('im:lang', render);
+  if ('IntersectionObserver' in window) { var io = new IntersectionObserver(function(en){ if (en[0].isIntersecting) { io.disconnect(); load(); } }, { rootMargin: '400px' }); io.observe($('#next')); } else load();
+});
+
+/* ---------- canvas helpers shared by the ticket and the marketing kit ---------- */
+var FD = '"Frank Ruhl Libre","Playfair Display",Georgia,serif', FB = 'Heebo,Rubik,system-ui,sans-serif';
+function fontsReady(cb){
+  var done = false, go = function(){ if (!done) { done = true; cb(); } };
+  try {
+    var f = document.fonts, list = [f.load('900 60px "Frank Ruhl Libre"', 'פילאטיס Pilates'), f.load('500 60px "Frank Ruhl Libre"', 'בוטיק'), f.load('700 60px "Frank Ruhl Libre"', 'א'), f.load('500 30px Heebo', 'א a'), f.load('700 40px "Dancing Script"', 'Pilates')];
+    if (LANG === 'ru') list.push(f.load('900 60px "Playfair Display"', 'Пилатес'), f.load('700 60px "Playfair Display"', 'Пилатес'), f.load('500 60px "Playfair Display"', 'Пилатес'), f.load('500 30px Rubik', 'Пилатес'));
+    Promise.all(list).then(go, go);
+  } catch (e) { go(); }
+  setTimeout(go, 2500);
+}
+function cText(ctx, s, x, y, size, weight, fam, color, maxW, align, dir){
+  s = String(s).replace(/<[^>]+>/g, '');
+  ctx.direction = dir || LANGS[LANG].dir; ctx.textAlign = align || 'center'; ctx.textBaseline = 'alphabetic'; ctx.fillStyle = color;
+  for (;;) { ctx.font = weight + ' ' + size + 'px ' + fam; if (!maxW || size <= 12 || ctx.measureText(s).width <= maxW) break; size -= 2; }
+  ctx.fillText(s, x, y); return size;
+}
+function cRR(ctx, x, y, w, h, r){ ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+function cPetal(ctx, x, y, s, rot, col, al){
+  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.globalAlpha = al == null ? .85 : al; ctx.fillStyle = col;
+  ctx.beginPath(); ctx.moveTo(0, s); ctx.bezierCurveTo(-s * .95, s * .35, -s * .7, -s * .8, -s * .12, -s * .85); ctx.quadraticCurveTo(0, -s * .62, s * .12, -s * .85); ctx.bezierCurveTo(s * .7, -s * .8, s * .95, s * .35, 0, s); ctx.fill(); ctx.restore();
+}
+function cBg(ctx, w, h){
+  var g = ctx.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#fbf4ef'); g.addColorStop(1, '#f1d8d3'); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+  var r = ctx.createRadialGradient(w * .85, 0, 0, w * .85, 0, w * .9); r.addColorStop(0, 'rgba(255,250,246,.95)'); r.addColorStop(1, 'rgba(255,250,246,0)'); ctx.fillStyle = r; ctx.fillRect(0, 0, w, h);
+  r = ctx.createRadialGradient(w * .1, h, 0, w * .1, h, w * .9); r.addColorStop(0, 'rgba(228,186,184,.9)'); r.addColorStop(1, 'rgba(228,186,184,0)'); ctx.fillStyle = r; ctx.fillRect(0, 0, w, h);
+  ctx.save(); ctx.translate(w * .5, h * .5); ctx.rotate(.42); ctx.fillStyle = 'rgba(255,255,255,.4)'; ctx.fillRect(-w * .08, -h * 1.5, w * .16, h * 3); ctx.fillStyle = 'rgba(255,255,255,.26)'; ctx.fillRect(w * .16, -h * 1.5, w * .07, h * 3); ctx.restore();
+}
+function cBall(ctx, x, y, r){
+  ctx.save();
+  var s = ctx.createRadialGradient(x, y + r * 1.12, 0, x, y + r * 1.12, r * 1.2); s.addColorStop(0, 'rgba(90,41,64,.32)'); s.addColorStop(1, 'rgba(90,41,64,0)');
+  ctx.translate(0, y + r * 1.12); ctx.scale(1, .28); ctx.translate(0, -(y + r * 1.12)); ctx.fillStyle = s; ctx.beginPath(); ctx.arc(x, y + r * 1.12, r * 1.2, 0, 6.3); ctx.fill(); ctx.restore();
+  var g = ctx.createRadialGradient(x - r * .32, y - r * .44, r * .05, x, y, r);
+  g.addColorStop(0, '#fff5f0'); g.addColorStop(.22, '#f0c6c2'); g.addColorStop(.55, '#d9a3a2'); g.addColorStop(.86, '#b77a80'); g.addColorStop(1, '#96596c');
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.3); ctx.fill();
+}
+function cRing(ctx, x, y, r, rot){ ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(.7, 1); ctx.strokeStyle = '#6a3148'; ctx.lineWidth = r * .09; ctx.beginPath(); ctx.arc(0, 0, r, 0, 6.3); ctx.stroke(); ctx.restore(); }
+function cLogo(ctx, x, y, r){
+  ctx.save();
+  ctx.fillStyle = '#fffaf7'; ctx.strokeStyle = '#7b3f55'; ctx.lineWidth = Math.max(2, r * .035); ctx.beginPath(); ctx.arc(x, y, r, 0, 6.3); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x - r * .78, y + r * .62); ctx.bezierCurveTo(x - r * .98, y + r * .2, x - r * .88, y - r * .36, x - r * .56, y - r * .66); ctx.stroke();
+  [[-.84, .2, -.5], [-.82, -.14, -.1], [-.68, -.44, .5], [-.72, .46, 1.2]].forEach(function(l){
+    ctx.save(); ctx.translate(x + r * l[0], y + r * l[1]); ctx.rotate(l[2]); ctx.fillStyle = '#d9a3a2'; ctx.beginPath(); ctx.ellipse(0, 0, r * .09, r * .19, 0, 0, 6.3); ctx.fill(); ctx.stroke(); ctx.restore();
+  });
+  ctx.fillStyle = '#7b3f55'; ctx.textAlign = 'center'; ctx.direction = 'ltr'; ctx.textBaseline = 'alphabetic';
+  ctx.font = '700 ' + (r * .5) + 'px "Dancing Script",cursive'; ctx.fillText('I.M', x + r * .1, y - r * .04);
+  ctx.font = '700 ' + (r * .46) + 'px "Dancing Script",cursive'; ctx.fillText('Pilates', x + r * .1, y + r * .42);
+  ctx.restore();
+}
+var LAST = {};
+function saveCanvas(cv, name){
+  LAST[name] = cv;
+  var hint = isTouch ? T('kit.hint') : '';
+  try {
+    cv.toBlob(function(blob){
+      if (!blob) return;
+      var url = URL.createObjectURL(blob), a = document.createElement('a');
+      a.href = url; a.download = name; a.style.display = 'none'; document.body.appendChild(a); a.click();
+      setTimeout(function(){ document.body.removeChild(a); }, 100);
+      if (LB) LB(url, name, hint);
+    }, 'image/png');
+  } catch (e) { try { if (LB) LB(cv.toDataURL('image/png'), name, hint); } catch (e2) {} }
+}
+
+/* ---------- marketing kit: story, post, print ---------- */
+function drawPoster(kind){
+  var story = kind === 'story', w = 1080, h = story ? 1920 : 1080, cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+  var c = cv.getContext('2d'), cx = w / 2, bens = ['b1.t', 'b2.t', 'b3.t', 'b4.t', 'b5.t'].map(function(k){ return T(k); });
+  var strip = function(s){ return s.replace(/<[^>]+>/g, ''); };
+  cBg(c, w, h);
+  if (story) {
+    cLogo(c, cx, 250, 118);
+    cText(c, strip(T('hero.h1a')), cx, 545, 190, 900, FD, '#5a2940', 960);
+    cText(c, strip(T('hero.h1b')), cx, 720, 190, 500, FD, '#c4807f', 960);
+    c.fillStyle = '#7b3f55'; cRR(c, 110, 778, 860, 96, 48); c.fill();
+    cText(c, T('k.small'), cx, 842, 46, 500, FB, '#fff', 800);
+    cText(c, T('k.vibe'), cx, 940, 42, 500, FB, '#7b3f55', 940);
+    cRing(c, cx + 150, 1075, 130, .5); cBall(c, cx, 1130, 150);
+    c.save(); c.globalAlpha = 1; var m = c.createRadialGradient(cx - 240, 1190, 5, cx - 220, 1215, 62); m.addColorStop(0, '#fff'); m.addColorStop(.5, '#f6e3db'); m.addColorStop(1, '#d9b9ae'); c.fillStyle = m; c.beginPath(); c.arc(cx - 220, 1215, 62, 0, 6.3); c.fill(); c.restore();
+    [[120, 420, 30, .6, '#eab4b8'], [960, 600, 24, 2.2, '#f3c9c9'], [900, 1010, 34, -.8, '#e09ea6'], [150, 1040, 26, 1.4, '#f3c9c9'], [840, 1290, 22, .3, '#eab4b8'], [220, 1330, 20, 2.6, '#e09ea6']].forEach(function(p){ cPetal(c, p[0], p[1], p[2], p[3], p[4]); });
+    bens.forEach(function(b, i){ cText(c, b, cx, 1408 + i * 60, 44, 700, FD, '#5a2940', 960); });
+    c.fillStyle = '#7b3f55'; cRR(c, 70, 1690, 940, 190, 40); c.fill();
+    cText(c, T('k.new') + ' · ' + T('loc.when'), cx, 1742, 36, 500, FB, '#fde3df', 880);
+    cText(c, T('loc.addr') + '  ·  ' + T('k.cta'), cx, 1790, 32, 400, FB, '#fde3df', 880);
+    cText(c, PHONE, cx, 1862, 68, 700, FB, '#fff', 880, 'center', 'ltr');
+  } else {
+    cBall(c, 24, 930, 128);
+    [[980, 130, 28, .6, '#eab4b8'], [70, 250, 22, 2.2, '#f3c9c9'], [1010, 640, 26, -.8, '#e09ea6'], [330, 930, 20, 1.4, '#f3c9c9']].forEach(function(p){ cPetal(c, p[0], p[1], p[2], p[3], p[4]); });
+    cLogo(c, cx, 132, 92);
+    cText(c, strip(T('hero.h1a')) + ' ' + strip(T('hero.h1b')), cx, 372, 150, 900, FD, '#5a2940', 980);
+    c.fillStyle = '#7b3f55'; cRR(c, 150, 412, 780, 78, 39); c.fill();
+    cText(c, T('k.small'), cx, 464, 38, 500, FB, '#fff', 720);
+    cText(c, T('k.vibe'), cx, 548, 34, 500, FB, '#7b3f55', 900);
+    bens.forEach(function(b, i){ cText(c, b, 600, 622 + i * 50, 37, 700, FD, '#5a2940', 760); });
+    cText(c, T('k.new') + ' · ' + T('loc.when'), 600, 886, 36, 700, FB, '#7b3f55', 800);
+    cText(c, T('loc.addr'), 600, 934, 32, 500, FB, '#7b3f55', 800);
+    c.fillStyle = '#7b3f55'; cRR(c, 50, 964, 980, 86, 30); c.fill();
+    var cta = T('k.cta'), ltr = LANGS[LANG].dir === 'ltr';
+    c.font = '500 34px ' + FB; var wc = c.measureText(cta).width; c.font = '700 46px ' + FB; var wp = c.measureText(PHONE).width, gap = 30, tot = wc + gap + wp, x0 = cx - tot / 2;
+    cText(c, cta, ltr ? x0 : x0 + tot, 1020, 34, 500, FB, '#fde3df', 0, ltr ? 'left' : 'right');
+    cText(c, PHONE, ltr ? x0 + wc + gap : x0, 1023, 46, 700, FB, '#fff', 0, 'left', 'ltr');
+  }
+  return cv;
+}
+safe('kit', function(){
+  var t = $('#kitT'), box = $('#kit');
+  t.addEventListener('click', function(){ var open = box.hidden; box.hidden = !open; t.setAttribute('aria-expanded', open ? 'true' : 'false'); if (open) box.scrollIntoView({ block: 'nearest', behavior: REDUCED ? 'auto' : 'smooth' }); });
+  box.addEventListener('click', function(e){
+    var b = e.target.closest('[data-kit]'); if (!b) return;
+    var k = b.getAttribute('data-kit');
+    if (k === 'print') { window.print(); return; }
+    fontsReady(function(){ saveCanvas(drawPoster(k), 'im-pilates-' + k + '-' + LANG + '.png'); });
+  });
+});
+
+/* ---------- holographic ticket ---------- */
+function hashStr(s){ var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = (h * 16777619) >>> 0; } return h; }
+function barcode(seed){ var out = [], x = seed || 1; for (var i = 0; i < 34; i++) { x = (x * 1664525 + 1013904223) >>> 0; out.push(1 + (x >>> 29) % 4); } return out; }
+function drawTicket(d){
+  var w = 1200, h = 630, cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+  var c = cv.getContext('2d'), rtl = LANGS[LANG].dir === 'rtl', stub = 300, sx = rtl ? 0 : w - stub, mx = rtl ? w - 70 : 70, al = rtl ? 'right' : 'left', mw = w - stub - 140;
+  c.fillStyle = '#fbf4ef'; c.fillRect(0, 0, w, h);
+  cRR(c, 24, 24, w - 48, h - 48, 44); c.save(); c.clip();
+  var g = c.createLinearGradient(0, 0, w, h); g.addColorStop(0, '#6f344c'); g.addColorStop(.58, '#48202f'); g.addColorStop(1, '#7b3f55'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+  c.globalCompositeOperation = 'lighter';
+  var f = c.createLinearGradient(w * .15, h, w * .85, 0);
+  [[.12, 'rgba(255,90,190,0)'], [.3, 'rgba(255,90,190,.2)'], [.4, 'rgba(120,150,255,.2)'], [.5, 'rgba(90,220,255,.2)'], [.6, 'rgba(255,225,120,.17)'], [.7, 'rgba(255,130,170,.18)'], [.88, 'rgba(255,130,170,0)']].forEach(function(s){ f.addColorStop(s[0], s[1]); });
+  c.fillStyle = f; c.fillRect(0, 0, w, h);
+  c.strokeStyle = 'rgba(255,255,255,.05)'; c.lineWidth = 2;
+  for (var q = -h; q < w; q += 16) { c.beginPath(); c.moveTo(q, h); c.lineTo(q + h * .55, 0); c.stroke(); }
+  var gl = c.createRadialGradient(w * .3, h * .15, 0, w * .3, h * .15, 420); gl.addColorStop(0, 'rgba(255,255,255,.22)'); gl.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = gl; c.fillRect(0, 0, w, h);
+  c.globalCompositeOperation = 'source-over';
+  c.restore();
+  c.save(); c.strokeStyle = 'rgba(255,255,255,.4)'; c.lineWidth = 3; c.setLineDash([12, 12]); var lx = rtl ? stub : w - stub; c.beginPath(); c.moveTo(lx, 60); c.lineTo(lx, h - 60); c.stroke(); c.restore();
+  c.save(); try { c.letterSpacing = '8px'; } catch (e) {}
+  cText(c, T('tk.title'), mx, 122, 26, 500, FB, 'rgba(253,238,234,.8)', mw, al); c.restore();
+  cText(c, d.name || 'I.M Pilates', mx, 232, 96, 700, FD, '#fff', mw, al);
+  var rows = [[T('tk.when'), daysText(d.days) + ' · 10:00'], [T('loc.kicker'), T('loc.addr')]];
+  rows.forEach(function(r, i){
+    var y = 330 + i * 78;
+    cText(c, r[0], mx, y, 26, 400, FB, 'rgba(253,238,234,.65)', mw, al);
+    cText(c, r[1], mx, y + 40, 40, 500, FB, '#fdeeea', mw, al);
+  });
+  cText(c, T('tk.admit'), mx, 548, 22, 500, FB, 'rgba(253,238,234,.7)', mw, al);
+  cLogo(c, sx + stub / 2 + (rtl ? 12 : -12), 150, 78);
+  var bars = barcode(hashStr((d.name || '') + (d.days || []).join('')));
+  var bx = sx + (rtl ? 62 : 38), by = 276, tot = bars.reduce(function(a, b){ return a + b; }, 0), k = 200 / tot, x = bx;
+  c.fillStyle = '#fdeeea'; bars.forEach(function(b, i){ if (i % 2 === 0) c.fillRect(x, by, b * k, 190); x += b * k; });
+  cText(c, 'IM-' + ('000000' + (hashStr(d.name || '') % 1000000)).slice(-6), bx + 100, 508, 22, 500, FB, 'rgba(253,238,234,.75)', 0, 'center', 'ltr');
+  return cv;
+}
+safe('ticket', function(){
+  var block = $('#tkBlock'), wrap = $('#tkWrap'), tk = $('#tk'), cur = null, raf = 0;
+  function fill(){
+    if (!cur) return;
+    $('#tkName').textContent = cur.name;
+    $('#tkWhen').textContent = daysText(cur.days) + ' · 10:00';
+    $('#tkNo').textContent = 'IM-' + ('000000' + (hashStr(cur.name) % 1000000)).slice(-6);
+    var bars = barcode(hashStr(cur.name + cur.days.join('')));
+    $('#tkBar').innerHTML = bars.map(function(b, i){ return '<i style="width:' + (b * 1.05) + 'px;' + (i % 2 ? 'opacity:0' : '') + '"></i>'; }).join('');
+  }
+  function shine(nx, ny){
+    tk.style.setProperty('--rx', (-ny * 9).toFixed(2) + 'deg'); tk.style.setProperty('--ry', (nx * 11).toFixed(2) + 'deg');
+    tk.style.setProperty('--fx', (50 + nx * 50).toFixed(1) + '%'); tk.style.setProperty('--fy', (50 + ny * 50).toFixed(1) + '%');
+    tk.style.setProperty('--gx', (50 + nx * 45).toFixed(1) + '%'); tk.style.setProperty('--gy', (50 + ny * 45).toFixed(1) + '%');
+  }
+  document.addEventListener('im:ticket', function(e){
+    var first = block.hidden; cur = e.detail; fill(); block.hidden = false;
+    if (first && !REDUCED) setTimeout(function(){ var r = tk.getBoundingClientRect(); if (r.top < window.innerHeight && r.bottom > 0) FX.burst(r.left + r.width / 2, r.top + r.height / 2, 46); }, 350);
+  });
+  document.addEventListener('im:lang', fill);
+  wrap.addEventListener('pointermove', function(e){ var r = wrap.getBoundingClientRect(); shine(((e.clientX - r.left) / r.width - .5) * 2, ((e.clientY - r.top) / r.height - .5) * 2); });
+  wrap.addEventListener('pointerleave', function(){ if (!TILT.live) shine(-.4, -.3); });
+  window.addEventListener('deviceorientation', function(){
+    if (block.hidden || raf) return;
+    raf = requestAnimationFrame(function(){ raf = 0; shine(TILT.x, TILT.y); });
+  }, { passive: true });
+  $('#tkDl').addEventListener('click', function(){
+    if (!cur) return;
+    var d = cur;
+    fontsReady(function(){
+      saveCanvas(drawTicket(d), 'im-pilates-ticket.png');
+      var r = tk.getBoundingClientRect(); FX.burst(r.left + r.width / 2, Math.max(80, Math.min(window.innerHeight - 80, r.top + r.height / 2)), 130);
+      ACH('ticket');
+    });
+  });
+});
+
+/* ---------- add to calendar ---------- */
+function calData(){
+  var chosen = $$('input[name=day]:checked').map(function(i){ return i.value; });
+  if (!chosen.length) chosen = ['שלישי', 'רביעי'];
+  var idx = chosen.map(function(d){ return d === 'רביעי' ? 3 : 2; }), by = idx.map(function(i){ return i === 3 ? 'WE' : 'TU'; }).join(',');
+  var t = nextClass(new Date(), idx) || new Date(), p = tzParts(t), z = function(n){ return (n < 10 ? '0' : '') + n; };
+  var day = '' + p.year + z(p.month) + z(p.day);
+  // NOTE: the class length is not published; one hour is a placeholder so the event has an end.
+  return { start: day + 'T' + z(CLASS_HOUR) + z(CLASS_MIN) + '00', end: day + 'T' + z(CLASS_HOUR + 1) + z(CLASS_MIN) + '00', by: by, title: T('cal.title'), loc: 'שמאי 15, אלעד', desc: 'ענבל ' + PHONE };
+}
+function buildICS(){
+  var d = calData(), esc = function(s){ return String(s).replace(/([,;\\])/g, '\\$1'); }, n = new Date(), z = function(x){ return (x < 10 ? '0' : '') + x; };
+  var stamp = n.getUTCFullYear() + z(n.getUTCMonth() + 1) + z(n.getUTCDate()) + 'T' + z(n.getUTCHours()) + z(n.getUTCMinutes()) + z(n.getUTCSeconds()) + 'Z';
+  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//I.M Pilates//Elad//HE', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    'BEGIN:VTIMEZONE', 'TZID:Asia/Jerusalem',
+    'BEGIN:STANDARD', 'DTSTART:19701025T020000', 'TZOFFSETFROM:+0300', 'TZOFFSETTO:+0200', 'TZNAME:IST', 'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU', 'END:STANDARD',
+    'BEGIN:DAYLIGHT', 'DTSTART:19700327T020000', 'TZOFFSETFROM:+0200', 'TZOFFSETTO:+0300', 'TZNAME:IDT', 'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=FR;BYMONTHDAY=23,24,25,26,27,28,29', 'END:DAYLIGHT',
+    'END:VTIMEZONE',
+    'BEGIN:VEVENT', 'UID:im-pilates-' + d.by.replace(',', '-').toLowerCase() + '@im-pilates-elad', 'DTSTAMP:' + stamp,
+    'DTSTART;TZID=Asia/Jerusalem:' + d.start, 'DTEND;TZID=Asia/Jerusalem:' + d.end, 'RRULE:FREQ=WEEKLY;BYDAY=' + d.by,
+    'SUMMARY:' + esc(d.title), 'LOCATION:' + esc(d.loc), 'DESCRIPTION:' + esc(d.desc),
+    'END:VEVENT', 'END:VCALENDAR'].join('\r\n') + '\r\n';
+}
+function buildGcal(){
+  var d = calData();
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(d.title) + '&dates=' + d.start + '/' + d.end + '&ctz=' + encodeURIComponent(TZ) +
+    '&recur=' + encodeURIComponent('RRULE:FREQ=WEEKLY;BYDAY=' + d.by) + '&location=' + encodeURIComponent(d.loc) + '&details=' + encodeURIComponent(d.desc);
+}
+safe('calendar', function(){
+  var ics = $('#icsLink'), g = $('#gcalLink');
+  var sync = function(){ ics.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(buildICS()); g.href = buildGcal(); };
+  sync();
+  $('#bookForm').addEventListener('change', sync);
+  document.addEventListener('im:lang', sync); document.addEventListener('im:ticket', sync);
+});
+
+/* ---------- ambient mode: a soft pad and a few chimes, synthesised, opt-in only ---------- */
+safe('ambient', function(){
+  var btn = $('#ambBtn'), AC = window.AudioContext || window.webkitAudioContext, ac = null, master = null, on = false, chimeT = 0;
+  if (!AC) { btn.style.display = 'none'; return; }
+  function build(){
+    ac = new AC(); master = ac.createGain(); master.gain.value = 0;
+    var lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 900; lp.Q.value = .4;
+    lp.connect(master); master.connect(ac.destination);
+    [[110, 'sine', .22], [164.81, 'sine', .16], [220.6, 'triangle', .09], [277.18, 'sine', .08], [329.2, 'sine', .06]].forEach(function(v, i){
+      var o = ac.createOscillator(), g = ac.createGain(), l = ac.createOscillator(), lg = ac.createGain();
+      o.type = v[1]; o.frequency.value = v[0]; o.detune.value = (i % 2 ? 6 : -5); g.gain.value = v[2];
+      l.frequency.value = .05 + i * .023; lg.gain.value = v[2] * .5; l.connect(lg); lg.connect(g.gain);
+      o.connect(g); g.connect(lp); o.start(); l.start();
+    });
+  }
+  function chime(){
+    if (!on || !ac) return;
+    var notes = [659.25, 739.99, 880, 987.77, 1108.73, 1318.5], f = notes[(Math.random() * notes.length) | 0], t = ac.currentTime;
+    var o = ac.createOscillator(), g = ac.createGain(); o.type = 'sine'; o.frequency.value = f;
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.09, t + .02); g.gain.exponentialRampToValueAtTime(.0001, t + 3.2);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t + 3.4);
+    chimeT = setTimeout(chime, 5000 + Math.random() * 9000);
+  }
+  function set(v){
+    on = v; btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    if (on) {
+      if (!ac) build();
+      if (ac.state === 'suspended') ac.resume();
+      master.gain.cancelScheduledValues(ac.currentTime); master.gain.setTargetAtTime(.5, ac.currentTime, 1.2);
+      clearTimeout(chimeT); chimeT = setTimeout(chime, 2500); ACH('amb');
+    } else if (ac) {
+      clearTimeout(chimeT); master.gain.cancelScheduledValues(ac.currentTime); master.gain.setTargetAtTime(0, ac.currentTime, .4);
+      setTimeout(function(){ if (!on && ac.state === 'running') ac.suspend(); }, 1600);
+    }
+  }
+  btn.addEventListener('click', function(){ set(!on); });
+  document.addEventListener('visibilitychange', function(){ if (!ac || !on) return; if (document.hidden) ac.suspend(); else ac.resume(); });
+});
+
+/* ---------- the stage: silk shader background + the particle spine ---------- */
+function initStage(){
+  var THREE = window.THREE;
+  if (!THREE) throw new Error('three.js not loaded');
+  if (REDUCED) return;
+  var cv = $('#stage'), root = document.documentElement, glEl = $('#gl');
+  var renderer = new THREE.WebGLRenderer({ canvas: cv, alpha: true, antialias: false, powerPreference: 'high-performance' });
+  var PR = TIER === 'low' ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
+  renderer.setPixelRatio(PR); renderer.setClearColor(0x000000, 0);
+  var scene = new THREE.Scene(), cam = new THREE.Camera(), W = 1, H = 1;
+
+  var bgU = { uT: { value: 0 }, uA: { value: 0 }, uS: { value: 0 }, uRes: { value: new THREE.Vector2(1, 1) } };
+  var bg = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
+    uniforms: bgU, depthTest: false, depthWrite: false, transparent: true, blending: THREE.NoBlending,
+    vertexShader: 'void main(){gl_Position=vec4(position.xy,0.,1.);}',
+    fragmentShader: [
+      'uniform float uT,uA,uS;uniform vec2 uRes;',
+      'void main(){',
+      ' vec2 uv=gl_FragCoord.xy/uRes;vec2 p=(uv-.5)*vec2(uRes.x/uRes.y,1.)*1.7;p.y+=uS;float t=uT*.07;',
+      ' p+=.38*vec2(sin(p.y*1.6+t*3.1),cos(p.x*1.25-t*2.3));',
+      ' p+=.21*vec2(sin(p.y*3.3-t*4.2),cos(p.x*2.9+t*3.4));',
+      ' float f=sin(p.x*1.9+p.y*1.4+t*5.)*.5+.5;',
+      ' float g=sin(-p.x*1.2+p.y*2.7-t*3.3)*.5+.5;',
+      ' float sh=pow(sin((p.x*.8+p.y)*5.5+t*7.)*.5+.5,10.);',
+      ' vec3 c=mix(vec3(.988,.962,.944),vec3(.957,.868,.846),f);',
+      ' c=mix(c,vec3(.89,.72,.72),g*g*.42);c+=sh*.05;',
+      ' gl_FragColor=vec4(c*uA,uA);',
+      '}'].join('\n')
+  }));
+  bg.frustumCulled = false; bg.renderOrder = 0; bg.visible = TIER !== 'low'; scene.add(bg);
+
+  var N = TIER === 'low' ? 1400 : (TIER === 'mid' ? 3600 : 9000);
+  function sample(draw, depth){
+    var S = 240, c = document.createElement('canvas'); c.width = c.height = S;
+    var g = c.getContext('2d'); g.fillStyle = '#fff'; g.strokeStyle = '#fff'; g.lineCap = 'round'; g.lineJoin = 'round'; g.textAlign = 'center';
+    draw(g, S);
+    var d = g.getImageData(0, 0, S, S).data, pts = [], out = new Float32Array(N * 3);
+    for (var i = 3; i < d.length; i += 4) if (d[i] > 110) pts.push((i - 3) / 4);
+    if (!pts.length) pts.push((S * S / 2) | 0);
+    for (var k = 0; k < N; k++) {
+      var p = pts[(Math.random() * pts.length) | 0], x = p % S, y = (p / S) | 0;
+      out[k * 3] = ((x + Math.random()) / S - .5) * 2; out[k * 3 + 1] = -((y + Math.random()) / S - .5) * 2; out[k * 3 + 2] = (Math.random() - .5) * (depth || .1);
+    }
+    return out;
+  }
+  var SH = {};
+  SH.ball = (function(){ var o = new Float32Array(N * 3), ga = Math.PI * (3 - Math.sqrt(5)); for (var i = 0; i < N; i++) { var y = 1 - (i / (N - 1)) * 2, r = Math.sqrt(1 - y * y), a = ga * i; o[i * 3] = Math.cos(a) * r; o[i * 3 + 1] = y; o[i * 3 + 2] = Math.sin(a) * r; } return o; })();
+  SH.scatter = (function(){ var o = new Float32Array(N * 3); for (var i = 0; i < N; i++) { var a = Math.random() * 6.283, b = Math.acos(2 * Math.random() - 1), r = 2.2 + Math.random() * 3.2; o[i * 3] = Math.sin(b) * Math.cos(a) * r; o[i * 3 + 1] = Math.sin(b) * Math.sin(a) * r; o[i * 3 + 2] = Math.cos(b) * r * .4; } return o; })();
+  SH.four = sample(function(g, S){ g.font = '900 250px "Frank Ruhl Libre",Georgia,serif'; g.textBaseline = 'middle'; g.fillText(String(MAX_SPOTS), S / 2, S / 2 + 12); }, .16);
+  SH.pin = sample(function(g){ g.beginPath(); g.arc(120, 92, 66, 0, 6.3); g.fill(); g.beginPath(); g.moveTo(62, 124); g.lineTo(178, 124); g.lineTo(120, 226); g.closePath(); g.fill(); g.globalCompositeOperation = 'destination-out'; g.beginPath(); g.arc(120, 92, 27, 0, 6.3); g.fill(); }, .14);
+  SH.bubble = sample(function(g){ g.beginPath(); g.arc(126, 112, 90, 0, 6.3); g.fill(); g.beginPath(); g.moveTo(56, 160); g.lineTo(34, 220); g.lineTo(104, 194); g.closePath(); g.fill(); g.globalCompositeOperation = 'destination-out'; g.beginPath(); g.arc(126, 112, 73, 0, 6.3); g.fill(); g.globalCompositeOperation = 'source-over'; g.lineWidth = 21; g.beginPath(); g.moveTo(100, 82); g.quadraticCurveTo(100, 142, 156, 144); g.stroke(); }, .12);
+  SH.logo = sample(function(g){ g.lineWidth = 5; g.beginPath(); g.arc(120, 120, 113, 0, 6.3); g.stroke(); g.lineWidth = 3; g.beginPath(); g.moveTo(34, 188); g.bezierCurveTo(10, 140, 22, 78, 58, 44); g.stroke(); [[26, 140, -.5], [28, 104, -.1], [44, 70, .5], [38, 170, 1.2]].forEach(function(l){ g.save(); g.translate(l[0], l[1]); g.rotate(l[2]); g.beginPath(); g.ellipse(0, 0, 9, 20, 0, 0, 6.3); g.fill(); g.restore(); }); g.textBaseline = 'alphabetic'; g.font = '700 64px "Dancing Script",cursive'; g.fillText('I.M', 132, 112); g.font = '700 58px "Dancing Script",cursive'; g.fillText('Pilates', 132, 168); }, .06);
+  SH.mat = (function(){ var o = new Float32Array(N * 3), ca = Math.cos(1.02), sa = Math.sin(1.02); for (var i = 0; i < N; i++) { var x = (Math.random() - .5) * 1.15, al = Math.random() * 2.75, y, z; if (al < 1.95) { y = 0; z = al - 1.05; } else { var s = al - 1.95, an = s * 10, rd = .19 - .1 * s / .8; z = .9 + Math.sin(an) * rd; y = .19 - Math.cos(an) * rd; } o[i * 3] = x; o[i * 3 + 1] = y * ca - z * sa + .1; o[i * 3 + 2] = y * sa + z * ca; } return o; })();
+  var SPIN = { ball: 1 };
+
+  var geo = new THREE.BufferGeometry(), rnd = new Float32Array(N * 4);
+  for (var i = 0; i < N * 4; i++) rnd[i] = Math.random();
+  var aFrom = new THREE.BufferAttribute(new Float32Array(N * 3), 3), aTo = new THREE.BufferAttribute(new Float32Array(N * 3), 3);
+  geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N * 3), 3));
+  geo.setAttribute('aFrom', aFrom); geo.setAttribute('aTo', aTo); geo.setAttribute('aRnd', new THREE.BufferAttribute(rnd, 4));
+  var U = { uMix: { value: 0 }, uT: { value: 0 }, uScale: { value: 100 }, uPR: { value: PR }, uSize: { value: TIER === 'high' ? 3 : 3.3 }, uRotA: { value: 0 }, uRotB: { value: 0 }, uAlpha: { value: 0 }, uCenter: { value: new THREE.Vector2() }, uRes: { value: new THREE.Vector2(1, 1) }, uColor: { value: new THREE.Vector3(.74, .46, .55) } };
+  var pts = new THREE.Points(geo, new THREE.ShaderMaterial({
+    uniforms: U, transparent: true, depthTest: false, depthWrite: false,
+    vertexShader: [
+      'attribute vec3 aFrom;attribute vec3 aTo;attribute vec4 aRnd;',
+      'uniform float uMix,uT,uScale,uPR,uSize,uRotA,uRotB,uAlpha;uniform vec2 uCenter,uRes;varying float vA;',
+      'vec3 rotY(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x+s*p.z,p.y,-s*p.x+c*p.z);}',
+      'void main(){',
+      ' float m=clamp(uMix*1.6-aRnd.x*.6,0.,1.);m=m*m*(3.-2.*m);',
+      ' vec3 p=mix(rotY(aFrom,uRotA),rotY(aTo,uRotB),m);',
+      ' float mid=sin(m*3.14159);',
+      ' p+=mid*.42*vec3(sin(aRnd.y*37.+uT*.9),cos(aRnd.z*41.+uT*1.1),sin(aRnd.w*29.+uT*.7));',
+      ' p+=.012*vec3(sin(uT*1.3+aRnd.y*50.),cos(uT*1.1+aRnd.z*50.),0.);',
+      ' float persp=1./(1.-p.z*.26);',
+      ' vec2 px=uCenter+vec2(p.x,-p.y)*uScale*persp;',
+      ' gl_Position=vec4(px.x/uRes.x*2.-1.,1.-px.y/uRes.y*2.,0.,1.);',
+      ' gl_PointSize=uSize*uPR*persp*(.55+aRnd.w*.9);',
+      ' vA=uAlpha*(.45+.55*aRnd.z)*clamp(persp,.55,1.3);',
+      '}'].join('\n'),
+    fragmentShader: 'uniform vec3 uColor;varying float vA;void main(){float d=length(gl_PointCoord-.5);float a=smoothstep(.5,.12,d)*vA;if(a<.01)discard;gl_FragColor=vec4(uColor,a);}'
+  }));
+  pts.frustumCulled = false; pts.renderOrder = 1; scene.add(pts);
+
+  var curA = '', curB = '';
+  function setPair(a, b){ curA = a; curB = b; aFrom.array.set(SH[a]); aTo.array.set(SH[b]); aFrom.needsUpdate = true; aTo.needsUpdate = true; }
+  function rotOf(name, t){ return SPIN[name] ? t * .22 : (name === 'scatter' ? t * .05 : Math.sin(t * .55) * (name === 'mat' ? .3 : .42)); }
+
+  var KF = [
+    { sel: '#hero', shape: 'ball', hero: 1 },
+    { sel: '#stats', shape: 'four', ax: .5, ay: .56, s: 1.15, al: .24 },
+    { sel: '#mats', shape: 'four', ax: .5, ay: .5, s: 1.1, al: .5, dk: 1 },
+    { sel: '#benefits', shape: 'mat', ax: .5, ay: .5, s: 1.15, al: .4 },
+    { sel: '#game', shape: 'mat', ax: .26, ay: .5, s: 1, al: .45 },
+    { sel: '#breath', shape: 'ball', ax: .5, ay: .56, s: 1.2, al: .4 },
+    { sel: '#history', shape: 'logo', ax: .24, ay: .5, s: 1, al: .2 },
+    { sel: '#location', shape: 'pin', ax: .5, ay: .42, s: .9, al: .5 },
+    { sel: '#book', shape: 'bubble', ax: .16, ay: .5, s: .8, al: .5 },
+    { sel: 'footer', shape: 'logo', ax: .5, ay: .45, s: .9, al: .5, dk: 1 }
+  ].filter(function(k){ k.el = $(k.sel); return !!k.el; });
+  function anchor(k){
+    if (k.hero) { var r = glEl.getBoundingClientRect(); return { cx: r.left + HERO_BALL.cx, cy: r.top + HERO_BALL.cy, sc: HERO_BALL.r * 1.22, al: .8, dk: 0 }; }
+    var wide = W >= 1000, ax = wide ? k.ax : .5; if (wide && root.dir === 'ltr') ax = 1 - ax;
+    return { cx: W * ax, cy: H * k.ay, sc: Math.min(W, H) * (wide ? .3 : .37) * k.s, al: k.al, dk: k.dk || 0 };
+  }
+  var sm = function(a, b, x){ x = Math.max(0, Math.min(1, (x - a) / (b - a))); return x * x * (3 - 2 * x); };
+  var lerp = function(a, b, t){ return a + (b - a) * t; };
+  function scrollState(){
+    var idx = -1, d0 = 0, d1 = 0;
+    for (var i = 0; i < KF.length; i++) { var r = KF[i].el.getBoundingClientRect(), d = r.top + r.height / 2 - H / 2; if (d <= 0) { idx = i; d0 = d; } else { d1 = d; break; } }
+    if (idx < 0) idx = 0, d0 = 0, d1 = 1e9;
+    if (idx >= KF.length - 1) { var z = anchor(KF[KF.length - 1]); z.a = z.b = KF[KF.length - 1].shape; z.m = 1; return z; }
+    var A = anchor(KF[idx]), B = anchor(KF[idx + 1]), t = d1 > d0 ? -d0 / (d1 - d0) : 0, m = sm(.28, .72, t);
+    return { a: KF[idx].shape, b: KF[idx + 1].shape, m: KF[idx].shape === KF[idx + 1].shape ? 1 : m, cx: lerp(A.cx, B.cx, m), cy: lerp(A.cy, B.cy, m), sc: lerp(A.sc, B.sc, m), al: lerp(A.al, B.al, m), dk: lerp(A.dk, B.dk, m) };
+  }
+
+  function layout(){ W = window.innerWidth; H = window.innerHeight; renderer.setSize(W, H, false); U.uRes.value.set(W, H); bgU.uRes.value.set(W * PR, H * PR); }
+  layout();
+
+  var mode = INTRO.done() ? 'scroll' : 'intro', outroT = 0, outroFrom = 'logo', bgTarget = mode === 'scroll' ? 1 : 0, running = false, t0 = performance.now(), last = t0;
+  INTRO.onEnd(function(){ if (mode !== 'intro') return; outroFrom = sm(1.1, 2.9, INTRO.t()) > .5 ? 'logo' : 'scatter'; mode = 'outro'; outroT = performance.now(); bgTarget = 1; });
+
+  function frame(ts){
+    if (!running) return;
+    requestAnimationFrame(frame);
+    if (PAINT) return;
+    var t = (ts - t0) / 1000, dt = Math.min(.1, (ts - last) / 1000); last = ts;
+    var st;
+    if (mode === 'intro') {
+      var it = INTRO.t();
+      st = { a: 'scatter', b: 'logo', m: sm(1.1, 2.9, it), cx: W / 2, cy: H / 2, sc: Math.min(W, H) * .36, al: sm(.7, 1.5, it) * .95, dk: 1 };
+    } else if (mode === 'outro') {
+      var e = Math.min(1, (ts - outroT) / 1150), k = e * e * (3 - 2 * e), hA = anchor(KF[0]);
+      st = { a: outroFrom, b: 'ball', m: k, cx: lerp(W / 2, hA.cx, k), cy: lerp(H / 2, hA.cy, k), sc: lerp(Math.min(W, H) * .36, hA.sc, k), al: lerp(.95, hA.al, k), dk: 1 - k };
+      if (e >= 1) mode = 'scroll';
+    } else st = scrollState();
+    if (st.a !== curA || st.b !== curB) setPair(st.a, st.b);
+    U.uMix.value = st.m; U.uT.value = t; U.uScale.value = st.sc; U.uCenter.value.set(st.cx, st.cy); U.uAlpha.value = st.al;
+    U.uRotA.value = rotOf(st.a, t); U.uRotB.value = rotOf(st.b, t);
+    U.uColor.value.set(lerp(.74, 1, st.dk), lerp(.46, .86, st.dk), lerp(.55, .85, st.dk));
+    bgU.uT.value = t; bgU.uS.value = window.pageYOffset / H * .22;
+    bgU.uA.value += (bgTarget - bgU.uA.value) * Math.min(1, dt * 2.2);
+    renderer.render(scene, cam);
+  }
+  function check(){
+    var want = !document.hidden;
+    if (want && !running) { running = true; last = performance.now(); requestAnimationFrame(frame); }
+    else if (!want) running = false;
+  }
+  var rz; window.addEventListener('resize', function(){ clearTimeout(rz); rz = setTimeout(layout, 100); });
+  cv.addEventListener('webglcontextlost', function(e){ e.preventDefault(); running = false; root.classList.remove('stage-on'); });
+  document.addEventListener('visibilitychange', check);
+  root.classList.add('stage-on');
+  check();
+  window.__im.stage = { n: N, tier: TIER, mode: function(){ return mode; }, pair: function(){ return curA + '>' + curB; }, running: function(){ return running; } };
+}
+
+window.__im.T = T; window.__im.setLang = setLang; window.__im.buildICS = buildICS; window.__im.buildGcal = buildGcal; window.__im.drawPoster = drawPoster; window.__im.drawTicket = drawTicket;
+window.__im.last = LAST; window.__im.storm = storm; window.__im.setPaint = setPaint; window.__im.fontsReady = fontsReady; window.__im.tier = TIER; window.__im.ach = function(){ return achGot.slice(); };
+
 function boot(){
   safe('petals', initPetals);
   safe('webgl', initGL);
+  safe('stage', initStage);
   safe('scroll', initScroll);
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
